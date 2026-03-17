@@ -1,0 +1,216 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
+// gsap column animation handled by KanbanColumn
+import toast from "react-hot-toast";
+import type { Job, JobStatus } from "@/types/job.types";
+import { useJobs } from "@/hooks/useJobs";
+import { useDragDrop } from "@/hooks/useDragDrop";
+import { useJobStore } from "@/store/jobStore";
+import { KanbanColumn } from "./KanbanColumn";
+import { JobCard } from "./JobCard";
+import { AddJobModal } from "./AddJobModal";
+
+export const KANBAN_COLUMNS: {
+  id: JobStatus;
+  title: string;
+  color: string;
+  icon: string;
+}[] = [
+  { id: "wishlist", title: "Wishlist", color: "#8B5CF6", icon: "★" },
+  { id: "applied", title: "Applied", color: "#3B82F6", icon: "📤" },
+  { id: "interview", title: "Interview", color: "#F59E0B", icon: "💬" },
+  { id: "offer", title: "Offer", color: "#10B981", icon: "🎯" },
+  { id: "rejected", title: "Rejected", color: "#EF4444", icon: "✕" },
+];
+
+function getColumnIdFromOverId(overId: string): JobStatus | null {
+  if (overId.startsWith("col:")) return overId.replace("col:", "") as JobStatus;
+  return null;
+}
+
+export function KanbanBoard() {
+  const { fetchJobs, createJob, updateJob, updateJobStatus, deleteJob } =
+    useJobs();
+  const getByStatus = useJobStore((s) => s.getByStatus);
+  const setJobs = useJobStore((s) => s.setJobs);
+  const jobs = useJobStore((s) => s.jobs);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+  );
+  const { state, handlers } = useDragDrop();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+  const [modalStatus, setModalStatus] = useState<JobStatus>("wishlist");
+  const [editingJob, setEditingJob] = useState<Job | null>(null);
+
+  useEffect(() => {
+    fetchJobs().catch(() => {
+      toast.error("Failed to load jobs");
+    });
+  }, [fetchJobs]);
+
+  const columns = useMemo(() => {
+    return KANBAN_COLUMNS.map((c) => ({
+      id: c.id,
+      title: c.title,
+      color: c.color,
+      jobs: getByStatus(c.id),
+      icon: c.icon,
+    }));
+  }, [getByStatus, jobs]);
+
+  const onAdd = (status: JobStatus) => {
+    setModalMode("create");
+    setModalStatus(status);
+    setEditingJob(null);
+    setModalOpen(true);
+  };
+
+  const onEdit = (job: Job) => {
+    setModalMode("edit");
+    setModalStatus(job.status);
+    setEditingJob(job);
+    setModalOpen(true);
+  };
+
+  const onDelete = async (job: Job) => {
+    try {
+      await deleteJob(job._id);
+      toast.success("Job deleted");
+    } catch {
+      toast.error("Delete failed");
+    }
+  };
+
+  const handleDragEnd = async (event: DragEndEvent): Promise<void> => {
+    handlers.onDragEnd(event);
+    const activeId = String(event.active.id);
+    const overId = event.over?.id ? String(event.over.id) : null;
+    if (!overId) return;
+
+    const activeJob = jobs.find((j) => j._id === activeId);
+    if (!activeJob) return;
+
+    const overColumnId =
+      getColumnIdFromOverId(overId) ??
+      jobs.find((j) => j._id === overId)?.status ??
+      null;
+    if (!overColumnId) return;
+
+    // compute new order index in target column
+    const targetJobs = jobs
+      .filter((j) => j.status === overColumnId && j._id !== activeId)
+      .sort((a, b) => a.order - b.order);
+    let newIndex = targetJobs.length;
+    if (!overId.startsWith("col:")) {
+      const overIndex = targetJobs.findIndex((j) => j._id === overId);
+      if (overIndex >= 0) newIndex = overIndex;
+    }
+
+    const movedList = arrayMove(
+      [activeJob, ...targetJobs],
+      0,
+      Math.min(newIndex, targetJobs.length),
+    ).map((j, idx) => ({ ...j, status: overColumnId, order: idx }));
+
+    const nextActive = movedList.find((j) => j._id === activeId);
+    if (!nextActive) return;
+
+    const previousJobs = jobs;
+    const nextJobs = previousJobs.map((j) => {
+      const replacement = movedList.find((m) => m._id === j._id);
+      return replacement ?? j;
+    });
+    setJobs(nextJobs);
+    try {
+      await updateJobStatus(activeId, {
+        status: nextActive.status,
+        order: nextActive.order,
+      });
+    } catch {
+      setJobs(previousJobs);
+      toast.error("Move failed — reverted");
+    }
+  };
+
+  return (
+    <div className="h-full min-h-0 p-4 md:p-6 flex flex-col overflow-hidden">
+      <div className="mb-4 flex items-end justify-between gap-3 shrink-0">
+        <div>
+          <div className="font-syne text-2xl text-(--text-primary) tracking-tight">
+            Kanban Board
+          </div>
+          <div className="text-sm text-(--text-secondary)">
+            Track every opportunity with intent.
+          </div>
+        </div>
+      </div>
+
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handlers.onDragStart}
+        onDragOver={handlers.onDragOver}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="flex-1 min-h-0 flex gap-4 overflow-x-auto overflow-y-hidden pb-4">
+          {columns.map((col) => (
+            <KanbanColumn
+              key={col.id}
+              column={{
+                id: col.id,
+                title: col.title,
+                color: col.color,
+                jobs: col.jobs,
+              }}
+              icon={col.icon}
+              isDropTarget={state.overColumnId === col.id}
+              onAdd={onAdd}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
+          ))}
+        </div>
+
+        <DragOverlay>
+          {state.activeJob ? (
+            <div style={{ transform: "scale(1.05) rotate(-2deg)" }}>
+              <JobCard
+                job={state.activeJob}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            </div>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
+
+      <AddJobModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        mode={modalMode}
+        initialStatus={modalStatus}
+        job={editingJob}
+        onCreate={async (dto) => {
+          await createJob(dto);
+        }}
+        onUpdate={async (id, dto) => {
+          await updateJob(id, dto);
+        }}
+      />
+    </div>
+  );
+}
