@@ -4,7 +4,7 @@ import { memo } from "react";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { motion } from "framer-motion";
-import { MapPin, Pencil, Trash2 } from "lucide-react";
+import { MapPin, Pencil, Trash2, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn, formatDate } from "@/lib/utils";
@@ -92,6 +92,19 @@ export const JobCard = memo(function JobCard({
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
           <Button
             type="button"
+            title="Generate Cover Letter"
+            size="icon"
+            variant="ghost"
+            className="h-8 w-8 hover:bg-(--bg-hover)"
+            onClick={(e) => {
+              e.stopPropagation();
+              window.location.href = `/cover-letter/${job._id}`;
+            }}
+          >
+            <Sparkles className="h-4 w-4 text-[#0ea5e9]" />
+          </Button>
+          <Button
+            type="button"
             size="icon"
             variant="ghost"
             className="h-8 w-8 hover:bg-(--bg-hover)"
@@ -139,6 +152,14 @@ export const JobCard = memo(function JobCard({
           <span className="text-xs text-(--text-secondary)">
             <span className="mr-1">💰</span>
             {job.salary}
+          </span>
+        ) : null}
+
+        {job.description ? (
+          <span className="text-xs text-(--text-secondary) truncate max-w-xs">
+            <span className="mr-1">📝</span>
+            {job.description.substring(0, 50)}
+            {job.description.length > 50 ? "..." : ""}
           </span>
         ) : null}
       </div>
