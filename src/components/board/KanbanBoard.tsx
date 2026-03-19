@@ -21,18 +21,19 @@ import { KanbanColumn } from "./KanbanColumn";
 import { JobCard } from "./JobCard";
 import { AddJobModal } from "./AddJobModal";
 import { FilterBar } from "@/components/search/FilterBar";
+import { Star, Send, MessageSquare, Target, XCircle } from "lucide-react";
 
 export const KANBAN_COLUMNS: {
   id: JobStatus;
   title: string;
   color: string;
-  icon: string;
+  icon: React.ElementType;
 }[] = [
-  { id: "wishlist", title: "Wishlist", color: "#8B5CF6", icon: "★" },
-  { id: "applied", title: "Applied", color: "#3B82F6", icon: "📤" },
-  { id: "interview", title: "Interview", color: "#F59E0B", icon: "💬" },
-  { id: "offer", title: "Offer", color: "#10B981", icon: "🎯" },
-  { id: "rejected", title: "Rejected", color: "#EF4444", icon: "✕" },
+  { id: "wishlist", title: "Wishlist", color: "#8B5CF6", icon: Star },
+  { id: "applied", title: "Applied", color: "#3B82F6", icon: Send },
+  { id: "interview", title: "Interview", color: "#F59E0B", icon: MessageSquare },
+  { id: "offer", title: "Offer", color: "#10B981", icon: Target },
+  { id: "rejected", title: "Rejected", color: "#EF4444", icon: XCircle },
 ];
 
 function getColumnIdFromOverId(overId: string): JobStatus | null {

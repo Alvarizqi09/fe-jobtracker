@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, DollarSign, ExternalLink, MapPin, Tag, Copy, FileText } from "lucide-react";
+import { Calendar, Clock, DollarSign, ExternalLink, MapPin, Tag, Copy, FileText, Zap, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -168,13 +168,14 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
                     {formatDate(job.deadline)}
                     {deadlineDays !== null && deadlineDays >= 0 && (
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
+                        className={`text-xs px-2 py-0.5 rounded-full flex items-center gap-1 ${
                           deadlineDays <= 3
                             ? "bg-[#EF444420] text-[#EF4444]"
                             : "bg-[#F59E0B20] text-[#F59E0B]"
                         }`}
                       >
-                        ⚡ {deadlineDays === 0
+                        <Zap className="h-3 w-3" />
+                        {deadlineDays === 0
                           ? "Today!"
                           : `${deadlineDays}d remaining`}
                       </span>
@@ -309,7 +310,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
                 href={`/cover-letter/${job._id}`}
                 className="inline-flex items-center gap-1.5 text-sm text-(--accent-cyan) hover:underline"
               >
-                ✨ Generate Cover Letter
+                <Sparkles className="h-4 w-4" /> Generate Cover Letter
               </a>
             </div>
           ) : (

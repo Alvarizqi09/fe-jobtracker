@@ -8,6 +8,7 @@ import {
   Pencil,
   Trash2,
   Sparkles,
+  MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -89,8 +90,9 @@ export function JobDetailHeader({ job, onEdit, onDelete }: Props) {
                 {priorityConfig.label} Priority
               </Badge>
               {job.location && (
-                <span className="text-xs text-(--text-secondary)">
-                  📍 {job.location}
+                <span className="text-xs text-(--text-secondary) flex items-center gap-1">
+                  <MapPin className="h-3 w-3" />
+                  {job.location}
                 </span>
               )}
             </div>

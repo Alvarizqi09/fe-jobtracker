@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, createElement } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Star, Send, MessageSquare, Target, XCircle, Layout, BarChart, Calendar, Home, Sparkles, User, MapPin } from "lucide-react";
 import {
   CommandDialog,
   CommandInput,
@@ -14,12 +14,12 @@ import {
 } from "@/components/ui/command";
 import { useJobStore } from "@/store/jobStore";
 
-const STATUS_ICONS: Record<string, string> = {
-  wishlist: "★",
-  applied: "📤",
-  interview: "💬",
-  offer: "🎯",
-  rejected: "✕",
+const STATUS_ICONS: Record<string, React.ElementType> = {
+  wishlist: Star,
+  applied: Send,
+  interview: MessageSquare,
+  offer: Target,
+  rejected: XCircle,
 };
 
 export function CommandSearch() {
@@ -62,9 +62,9 @@ export function CommandSearch() {
                 value={`${job.company} ${job.position}`}
                 onSelect={() => navigate(`/jobs/${job._id}`)}
               >
-                <span className="mr-2">
-                  {STATUS_ICONS[job.status] ?? "📌"}
-                </span>
+                <div className="mr-2 flex items-center justify-center">
+                  {STATUS_ICONS[job.status] ? createElement(STATUS_ICONS[job.status], { className: "h-4 w-4" }) : <MapPin className="h-4 w-4" />}
+                </div>
                 <span className="flex-1 truncate">
                   {job.position}{" "}
                   <span className="text-(--text-muted)">@ {job.company}</span>
@@ -82,27 +82,27 @@ export function CommandSearch() {
         {/* Navigation Actions */}
         <CommandGroup heading="Actions">
           <CommandItem onSelect={() => navigate("/board")}>
-            <span className="mr-2">📋</span>
+            <Layout className="mr-2 h-4 w-4" />
             Go to Board
           </CommandItem>
           <CommandItem onSelect={() => navigate("/analytics")}>
-            <span className="mr-2">📊</span>
+            <BarChart className="mr-2 h-4 w-4" />
             Go to Analytics
           </CommandItem>
           <CommandItem onSelect={() => navigate("/timeline")}>
-            <span className="mr-2">📅</span>
+            <Calendar className="mr-2 h-4 w-4" />
             Go to Timeline
           </CommandItem>
           <CommandItem onSelect={() => navigate("/dashboard")}>
-            <span className="mr-2">🏠</span>
+            <Home className="mr-2 h-4 w-4" />
             Go to Dashboard
           </CommandItem>
           <CommandItem onSelect={() => navigate("/cover-letter")}>
-            <span className="mr-2">✨</span>
+            <Sparkles className="mr-2 h-4 w-4" />
             Cover Letters
           </CommandItem>
           <CommandItem onSelect={() => navigate("/profile")}>
-            <span className="mr-2">👤</span>
+            <User className="mr-2 h-4 w-4" />
             Go to Profile
           </CommandItem>
         </CommandGroup>

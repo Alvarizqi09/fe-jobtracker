@@ -8,8 +8,9 @@ import { useJobs } from '@/hooks/useJobs'
 import { useJobStore } from '@/store/jobStore'
 import type { Job } from '@/types/job.types'
 import { AddJobModal } from '@/components/board/AddJobModal'
+import { Pin, MessageSquare, Target, XCircle } from 'lucide-react'
 
-function StatCard({ label, value, icon }: { label: string; value: number; icon: string }) {
+function StatCard({ label, value, icon }: { label: string; value: number; icon: React.ReactNode }) {
   const numberRef = useRef<HTMLDivElement | null>(null)
 
   useLayoutEffect(() => {
@@ -106,10 +107,10 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-        <StatCard label="Total Applications" value={stats.total} icon="📌" />
-        <StatCard label="Active Interviews" value={stats.interviews} icon="💬" />
-        <StatCard label="Offers Received" value={stats.offers} icon="🎯" />
-        <StatCard label="Rejection Rate (%)" value={stats.rejectionRate} icon="✕" />
+        <StatCard label="Total Applications" value={stats.total} icon={<Pin className="h-5 w-5" />} />
+        <StatCard label="Active Interviews" value={stats.interviews} icon={<MessageSquare className="h-5 w-5" />} />
+        <StatCard label="Offers Received" value={stats.offers} icon={<Target className="h-5 w-5" />} />
+        <StatCard label="Rejection Rate (%)" value={stats.rejectionRate} icon={<XCircle className="h-5 w-5" />} />
       </div>
 
       <RecentJobs jobs={recent} />

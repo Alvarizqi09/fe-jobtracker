@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { Lightbulb } from "lucide-react";
 
 const QUESTION_MAP: Record<string, string[]> = {
   react: [
@@ -133,8 +134,9 @@ export function InterviewPrepSection({
 
       {/* Suggested Questions */}
       <div>
-        <h4 className="text-sm font-medium text-(--text-primary) mb-3">
-          💡 Suggested Interview Questions
+        <h4 className="text-sm font-medium text-(--text-primary) mb-3 flex items-center gap-2">
+          <Lightbulb className="h-4 w-4 text-(--accent-cyan)" />
+          Suggested Interview Questions
         </h4>
         <div className="space-y-2">
           {suggestedQuestions.map((q, i) => (

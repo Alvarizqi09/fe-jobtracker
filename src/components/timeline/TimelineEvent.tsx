@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CircleDot, Activity, FileText, Sparkles, PencilLine, Info } from "lucide-react";
 import type { TimelineEvent } from "@/types/analytics.types";
 
-const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }> = {
-  created: { icon: "🔵", color: "#3B82F6", label: "Applied" },
-  status_changed: { icon: "🟡", color: "#F59E0B", label: "Status Changed" },
-  note_added: { icon: "📝", color: "#8B5CF6", label: "Note Added" },
-  cover_letter_generated: { icon: "✨", color: "#8B5CF6", label: "Cover Letter" },
-  edited: { icon: "✏️", color: "#9fb3dc", label: "Edited" },
+const TYPE_CONFIG: Record<string, { icon: React.ElementType; color: string; label: string }> = {
+  created: { icon: CircleDot, color: "#3B82F6", label: "Applied" },
+  status_changed: { icon: Activity, color: "#F59E0B", label: "Status Changed" },
+  note_added: { icon: FileText, color: "#8B5CF6", label: "Note Added" },
+  cover_letter_generated: { icon: Sparkles, color: "#8B5CF6", label: "Cover Letter" },
+  edited: { icon: PencilLine, color: "#9fb3dc", label: "Edited" },
 };
 
 export function TimelineEventItem({
@@ -19,10 +20,11 @@ export function TimelineEventItem({
   index: number;
 }) {
   const config = TYPE_CONFIG[event.type] ?? {
-    icon: "📌",
+    icon: Info,
     color: "#9fb3dc",
     label: event.type,
   };
+  const Icon = config.icon;
 
   // Check if newValue is "offer" for celebration
   const isOffer = event.newValue === "offer";
@@ -46,13 +48,14 @@ export function TimelineEventItem({
       {/* Timeline line */}
       <div className="flex flex-col items-center">
         <div
-          className="h-8 w-8 rounded-full flex items-center justify-center text-sm shrink-0"
+          className="h-8 w-8 rounded-full flex items-center justify-center shrink-0"
           style={{
             background: `${config.color}20`,
             border: `2px solid ${config.color}`,
+            color: config.color,
           }}
         >
-          {config.icon}
+          <Icon className="h-4 w-4" />
         </div>
         <div className="flex-1 w-px bg-[rgba(60,90,140,0.3)] mt-2" />
       </div>
@@ -73,9 +76,9 @@ export function TimelineEventItem({
             {dateStr} · {timeStr}
           </span>
         </div>
-        <p className="mt-1 text-sm text-(--text-primary)">
+        <p className="mt-1 text-sm text-(--text-primary) flex items-center gap-1">
           {event.description}
-          {isOffer && " 🎉"}
+          {isOffer && <Sparkles className="h-4 w-4 text-[#F59E0B]" />}
         </p>
         <p className="text-xs text-(--text-secondary) mt-0.5">
           {event.position} at{" "}

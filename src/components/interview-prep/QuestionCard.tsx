@@ -112,8 +112,9 @@ export function QuestionCard({ question, onAnswerChange, onMarkReady }: Props) {
                       Show hint
                     </button>
                   ) : (
-                    <div className="text-xs text-(--text-secondary) bg-[rgba(0,212,255,0.06)] border border-[rgba(0,212,255,0.15)] rounded-lg px-3 py-2">
-                      💡 {question.hint}
+                    <div className="text-xs text-(--text-secondary) flex items-start gap-2 bg-[rgba(0,212,255,0.06)] border border-[rgba(0,212,255,0.15)] rounded-lg px-3 py-2">
+                      <Lightbulb className="h-4 w-4 shrink-0 text-(--accent-cyan)" />
+                      <span>{question.hint}</span>
                     </div>
                   )}
                 </div>

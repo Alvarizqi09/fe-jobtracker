@@ -17,14 +17,14 @@ import { JobCard } from "./JobCard";
 
 export function KanbanColumn({
   column,
-  icon,
+  icon: Icon,
   isDropTarget,
   onAdd,
   onEdit,
   onDelete,
 }: {
   column: KanbanColumnType;
-  icon: string;
+  icon: React.ElementType;
   isDropTarget: boolean;
   onAdd: (statusId: KanbanColumnType["id"]) => void;
   onEdit: (job: Job) => void;
@@ -70,7 +70,7 @@ export function KanbanColumn({
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-(--bg-card)">
-                <span className="text-base">{icon}</span>
+                <Icon className="h-4 w-4" />
               </span>
               <div className="min-w-0">
                 <div className="font-syne text-sm tracking-wide text-(--text-primary) flex items-center gap-2">
