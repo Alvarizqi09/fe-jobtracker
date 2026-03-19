@@ -1,3 +1,6 @@
+import type { ActivityEvent } from './analytics.types';
+import type { InterviewQuestion, OfferDetails } from './notification.types';
+
 export type JobStatus =
   | "wishlist"
   | "applied"
@@ -17,10 +20,14 @@ export interface Job {
   location?: string;
   jobUrl?: string;
   description?: string;
+  notes?: string;
   appliedDate?: string;
   deadline?: string;
   tags?: string[];
   order: number;
+  activityLog?: ActivityEvent[];
+  interviewQuestions?: InterviewQuestion[];
+  offerDetails?: OfferDetails;
   createdAt: string;
   updatedAt: string;
 }
@@ -34,6 +41,7 @@ export interface CreateJobDTO {
   location?: string;
   jobUrl?: string;
   description?: string;
+  notes?: string;
   appliedDate?: string;
   deadline?: string;
   tags?: string[];
@@ -50,3 +58,4 @@ export interface KanbanColumn {
   color: string;
   jobs: Job[];
 }
+

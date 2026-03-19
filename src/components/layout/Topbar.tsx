@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Sidebar } from "./Sidebar";
 import { useAuth } from "@/hooks/useAuth";
 import { logOut } from "@/lib/firebase";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 function initials(nameOrEmail: string): string {
   const parts = nameOrEmail.trim().split(/\s+/).filter(Boolean);
@@ -39,6 +40,17 @@ export function Topbar() {
     } finally {
       setLoggingOut(false);
     }
+  };
+
+  const openSearch = () => {
+    // Dispatch Ctrl+K programmatically
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "k",
+        ctrlKey: true,
+        bubbles: true,
+      }),
+    );
   };
 
   return (
@@ -75,6 +87,23 @@ export function Topbar() {
       </div>
 
       <div className="flex items-center gap-3">
+        {/* Search trigger */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-8 text-xs text-(--text-muted) border border-[rgba(60,90,140,0.3)] hover:bg-(--bg-hover) hover:text-(--text-secondary) gap-2 px-2.5"
+          onClick={openSearch}
+        >
+          <Search className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">Search</span>
+          <kbd className="font-jetbrains text-[10px] bg-(--bg-hover) border border-[rgba(60,90,140,0.5)] rounded px-1 py-0.5">
+            Ctrl+K
+          </kbd>
+        </Button>
+
+        {/* Notification bell */}
+        <NotificationBell />
+
         <div className="hidden sm:block text-right">
           <div className="text-sm text-(--text-primary) font-medium">
             {user?.displayName ?? "Agent"}
@@ -111,6 +140,12 @@ export function Topbar() {
               className="cursor-pointer focus:bg-(--bg-hover)"
             >
               Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => router.push("/settings")}
+              className="cursor-pointer focus:bg-(--bg-hover)"
+            >
+              Settings
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={handleLogout}

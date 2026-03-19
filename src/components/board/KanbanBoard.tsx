@@ -11,15 +11,16 @@ import {
   type DragEndEvent,
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-// gsap column animation handled by KanbanColumn
 import toast from "react-hot-toast";
 import type { Job, JobStatus } from "@/types/job.types";
 import { useJobs } from "@/hooks/useJobs";
+import { useSearch } from "@/hooks/useSearch";
 import { useDragDrop } from "@/hooks/useDragDrop";
 import { useJobStore } from "@/store/jobStore";
 import { KanbanColumn } from "./KanbanColumn";
 import { JobCard } from "./JobCard";
 import { AddJobModal } from "./AddJobModal";
+import { FilterBar } from "@/components/search/FilterBar";
 
 export const KANBAN_COLUMNS: {
   id: JobStatus;
@@ -46,6 +47,15 @@ export function KanbanBoard() {
   const setJobs = useJobStore((s) => s.setJobs);
   const jobs = useJobStore((s) => s.jobs);
 
+  const {
+    filters,
+    filteredJobs,
+    activeFilterCount,
+    allTags,
+    updateFilter,
+    clearFilters,
+  } = useSearch();
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
   );
@@ -62,15 +72,22 @@ export function KanbanBoard() {
     });
   }, [fetchJobs]);
 
+  // Build columns from filtered jobs when filters active, or all jobs when not
   const columns = useMemo(() => {
-    return KANBAN_COLUMNS.map((c) => ({
-      id: c.id,
-      title: c.title,
-      color: c.color,
-      jobs: getByStatus(c.id),
-      icon: c.icon,
-    }));
-  }, [getByStatus, jobs]);
+    const sourceJobs = activeFilterCount > 0 ? filteredJobs : jobs;
+    return KANBAN_COLUMNS.map((c) => {
+      const colJobs = sourceJobs
+        .filter((j) => j.status === c.id)
+        .sort((a, b) => a.order - b.order);
+      return {
+        id: c.id,
+        title: c.title,
+        color: c.color,
+        jobs: colJobs,
+        icon: c.icon,
+      };
+    });
+  }, [activeFilterCount, filteredJobs, jobs]);
 
   const onAdd = (status: JobStatus) => {
     setModalMode("create");
@@ -110,7 +127,6 @@ export function KanbanBoard() {
       null;
     if (!overColumnId) return;
 
-    // compute new order index in target column
     const targetJobs = jobs
       .filter((j) => j.status === overColumnId && j._id !== activeId)
       .sort((a, b) => a.order - b.order);
@@ -159,6 +175,19 @@ export function KanbanBoard() {
         </div>
       </div>
 
+      {/* Filter Bar */}
+      <div className="mb-4 shrink-0">
+        <FilterBar
+          filters={filters}
+          onFilterChange={updateFilter}
+          onClear={clearFilters}
+          activeFilterCount={activeFilterCount}
+          allTags={allTags}
+          totalJobs={jobs.length}
+          filteredCount={filteredJobs.length}
+        />
+      </div>
+
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -166,7 +195,7 @@ export function KanbanBoard() {
         onDragOver={handlers.onDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex-1 min-h-0 flex gap-4 overflow-x-auto overflow-y-hidden pb-4">
+        <div className="flex-1 min-h-0 flex gap-3 sm:gap-4 overflow-x-auto overflow-y-hidden pb-4 snap-x snap-mandatory sm:snap-none">
           {columns.map((col) => (
             <KanbanColumn
               key={col.id}

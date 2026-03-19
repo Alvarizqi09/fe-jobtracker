@@ -1,14 +1,16 @@
 "use client";
 
 import { memo } from "react";
+import { useRouter } from "next/navigation";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { motion } from "framer-motion";
-import { MapPin, Pencil, Trash2, Sparkles } from "lucide-react";
+import { MapPin, Pencil, Trash2, Sparkles, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn, formatDate } from "@/lib/utils";
 import type { Job, JobPriority, JobStatus } from "@/types/job.types";
+import { differenceInDays } from "date-fns";
 
 function priorityColor(priority: JobPriority): string {
   if (priority === "high") return "var(--priority-high)";
@@ -36,6 +38,7 @@ export const JobCard = memo(function JobCard({
   onEdit: (job: Job) => void;
   onDelete: (job: Job) => void;
 }) {
+  const router = useRouter();
   const {
     attributes,
     listeners,
@@ -55,6 +58,13 @@ export const JobCard = memo(function JobCard({
     transition,
     opacity: isDragging ? 0.5 : 1,
   };
+
+  // Deadline countdown
+  const deadlineDays = job.deadline
+    ? differenceInDays(new Date(job.deadline), new Date())
+    : null;
+  const showDeadline =
+    deadlineDays !== null && deadlineDays >= 0 && deadlineDays <= 7;
 
   return (
     <motion.div
@@ -82,9 +92,16 @@ export const JobCard = memo(function JobCard({
       />
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="truncate text-[15px] font-semibold text-(--text-primary)">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/jobs/${job._id}`);
+            }}
+            className="truncate text-[15px] font-semibold text-(--text-primary) hover:text-(--accent-cyan) transition-colors cursor-pointer text-left"
+          >
             {job.company}
-          </div>
+          </button>
           <div className="mt-0.5 truncate text-sm text-(--text-secondary)">
             {job.position}
           </div>
@@ -154,6 +171,21 @@ export const JobCard = memo(function JobCard({
             {job.salary}
           </span>
         ) : null}
+
+        {/* Deadline countdown chip */}
+        {showDeadline && (
+          <span
+            className={cn(
+              "inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full",
+              deadlineDays <= 3
+                ? "bg-[#EF444420] text-[#EF4444]"
+                : "bg-[#F59E0B20] text-[#F59E0B]",
+            )}
+          >
+            <Clock className="h-3 w-3" />
+            {deadlineDays === 0 ? "Today!" : `${deadlineDays}d`}
+          </span>
+        )}
 
         {job.description ? (
           <span className="text-xs text-(--text-secondary) truncate max-w-xs">

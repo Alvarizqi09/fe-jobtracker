@@ -53,7 +53,7 @@ export function KanbanColumn({
   const jobIds = useMemo(() => column.jobs.map((j) => j._id), [column.jobs]);
 
   return (
-    <div ref={ref} className="kanban-col w-[320px] shrink-0 h-full min-h-0">
+    <div ref={ref} className="kanban-col w-[260px] sm:w-[320px] shrink-0 h-full min-h-0">
       <div
         ref={(node) => {
           setNodeRef(node);
@@ -135,7 +135,7 @@ export function KanbanColumn({
         <div className="p-4 border-t border-border shrink-0">
           <Button
             type="button"
-            className="w-full bg-(--bg-card) border border-border text-(--text-primary) hover:bg-(--bg-hover)"
+            className="add-job-btn w-full bg-(--bg-card) border border-border text-(--text-primary) hover:bg-(--bg-hover)"
             onClick={() => onAdd(column.id)}
           >
             Add Job

@@ -284,7 +284,7 @@ export default function CoverLetterGeneratorPage() {
       </div>
 
       {/* RIGHT PANEL */}
-      <div className="flex-1 bg-card rounded-xl border shadow-sm overflow-hidden flex flex-col relative min-h-[500px]">
+      <div className="flex-1 bg-card rounded-xl border shadow-sm overflow-hidden flex flex-col relative min-h-[300px] sm:min-h-[500px]">
         <AnimatePresence mode="wait">
           {!generatedLetter && !isGenerating ? (
             <motion.div
@@ -404,7 +404,8 @@ export default function CoverLetterGeneratorPage() {
                   onClick={handleDiscard}
                   className="text-destructive hover:text-destructive hover:bg-destructive/10"
                 >
-                  <Trash className="w-4 h-4 mr-2" /> Discard
+                  <Trash className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Discard</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -412,17 +413,20 @@ export default function CoverLetterGeneratorPage() {
                   onClick={handleDownload}
                   className="hover:bg-primary/5 hover:text-primary"
                 >
-                  <Download className="w-4 h-4 mr-2" /> Download .txt
+                  <Download className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Download .txt</span>
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleGenerate}>
-                  <RefreshCw className="w-4 h-4 mr-2" /> Regenerate
+                  <RefreshCw className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Regenerate</span>
                 </Button>
                 <Button
                   variant="secondary"
                   size="sm"
                   onClick={handleCopyToClipboard}
                 >
-                  <Copy className="w-4 h-4 mr-2" /> Copy to clipboard
+                  <Copy className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Copy to clipboard</span>
                 </Button>
                 <Button
                   size="sm"
@@ -434,7 +438,8 @@ export default function CoverLetterGeneratorPage() {
                     } catch (e) {}
                   }}
                 >
-                  <Save className="w-4 h-4 mr-2" /> Save to History
+                  <Save className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Save to History</span>
                 </Button>
               </div>
             </motion.div>

@@ -168,7 +168,7 @@ export function AddJobModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <AnimatePresence>
         {open ? (
-          <DialogContent className="max-w-2xl bg-(--bg-card) border-border text-(--text-primary) max-h-[90vh] flex flex-col">
+          <DialogContent className="max-w-[95vw] sm:max-w-2xl bg-(--bg-card) border-border text-(--text-primary) max-h-[90vh] flex flex-col">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}

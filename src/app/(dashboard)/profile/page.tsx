@@ -119,7 +119,7 @@ export default function ProfilePage() {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-        <div className="lg:col-span-2 overflow-x-hidden relative min-h-[500px]">
+        <div className="lg:col-span-2 overflow-x-hidden relative min-h-[300px] sm:min-h-[500px]">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={currentStep}
