@@ -81,7 +81,7 @@ export function Sidebar({ variant }: { variant?: 'desktop' | 'mobile' }) {
             <Coffee className="h-4 w-4 text-[#F59E0B]" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-medium text-(--text-primary) group-hover:text-[#F59E0B] transition-colors">Support the Dev</div>
+            <div className="text-sm font-medium text-(--text-primary) group-hover:text-[#F59E0B] transition-colors">Support gwehhh</div>
             <div className="text-xs text-(--text-secondary) mt-0.5 group-hover:text-(--text-primary) transition-colors">via Saweria</div>
           </div>
         </a>
