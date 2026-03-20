@@ -5,14 +5,18 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { GlobalLoader } from '@/components/ui/GlobalLoader'
 
+let hasInitialDelayPassed = false
+
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
-  const [minDelayPassed, setMinDelayPassed] = useState(false)
+  const [minDelayPassed, setMinDelayPassed] = useState(hasInitialDelayPassed)
 
   useEffect(() => {
+    if (hasInitialDelayPassed) return
     const timer = setTimeout(() => {
+      hasInitialDelayPassed = true
       setMinDelayPassed(true)
     }, 2000)
     return () => clearTimeout(timer)

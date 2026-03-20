@@ -57,7 +57,7 @@ export function GlobalLoader() {
         </div>
         
         <div className="mt-8 flex items-center gap-2">
-          <span className="text-xs uppercase tracking-[0.2em] text-(--text-muted)">Initializing Systems</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-(--text-muted)">LOADING DULU BOSSSS</span>
           <div className="flex gap-1 ml-1">
             <div className="dot w-1.5 h-1.5 rounded-full bg-(--accent-cyan)" />
             <div className="dot w-1.5 h-1.5 rounded-full bg-(--accent-cyan)" />
