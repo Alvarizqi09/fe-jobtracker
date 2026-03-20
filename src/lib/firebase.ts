@@ -20,12 +20,7 @@ const hasFirebaseConfig =
 
 const app = hasFirebaseConfig ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]) : null
 export const auth: Auth | null = app ? getAuth(app) : null
-export const googleProvider = new GoogleAuthProvider()
 
-export const signInWithGoogle = () => {
-  if (!auth) throw new Error('Firebase is not configured. Check NEXT_PUBLIC_FIREBASE_* env vars.')
-  return signInWithPopup(auth, googleProvider)
-}
 export const logOut = () => {
   if (!auth) return Promise.resolve()
   return signOut(auth)
