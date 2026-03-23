@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { motion } from "framer-motion";
-import { MapPin, Pencil, Trash2, Sparkles, Clock, DollarSign, FileText, MoreHorizontal } from "lucide-react";
+import { MapPin, Pencil, Trash2, Sparkles, Clock, DollarSign, FileText, MoreHorizontal, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,7 +53,7 @@ export const JobCard = memo(function JobCard({
 }: {
   job: Job;
   onEdit: (job: Job) => void;
-  onDelete: (job: Job) => void;
+  onDelete: (job: Job) => void | Promise<void>;
 }) {
   const router = useRouter();
   const {
@@ -77,6 +77,7 @@ export const JobCard = memo(function JobCard({
   };
 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Deadline countdown
   const deadlineDays = job.deadline
@@ -132,7 +133,7 @@ export const JobCard = memo(function JobCard({
                 type="button"
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8 text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+                className="h-8 w-8 text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
                 onClick={(e) => e.stopPropagation()}
                 onPointerDown={(e) => e.stopPropagation()}
               >
@@ -274,14 +275,27 @@ export const JobCard = memo(function JobCard({
             <AlertDialogCancel className="border-[rgba(60,90,140,0.4)] text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) bg-transparent">Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 px-4 py-2 rounded-md"
-              onClick={(e) => {
+              disabled={isDeleting}
+              onClick={async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                setShowDeleteDialog(false);
-                onDelete(job);
+                setIsDeleting(true);
+                try {
+                  await onDelete(job);
+                  setShowDeleteDialog(false);
+                } finally {
+                  setIsDeleting(false);
+                }
               }}
             >
-              Delete
+              {isDeleting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
