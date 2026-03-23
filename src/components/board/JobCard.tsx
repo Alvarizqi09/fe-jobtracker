@@ -1,13 +1,30 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { motion } from "framer-motion";
-import { MapPin, Pencil, Trash2, Sparkles, Clock, DollarSign, FileText } from "lucide-react";
+import { MapPin, Pencil, Trash2, Sparkles, Clock, DollarSign, FileText, MoreHorizontal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { cn, formatDate } from "@/lib/utils";
 import type { Job, JobPriority, JobStatus } from "@/types/job.types";
 import { differenceInDays } from "date-fns";
@@ -59,6 +76,8 @@ export const JobCard = memo(function JobCard({
     opacity: isDragging ? 0.5 : 1,
   };
 
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
   // Deadline countdown
   const deadlineDays = job.deadline
     ? differenceInDays(new Date(job.deadline), new Date())
@@ -106,44 +125,54 @@ export const JobCard = memo(function JobCard({
             {job.position}
           </div>
         </div>
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
-          <Button
-            type="button"
-            title="Generate Cover Letter"
-            size="icon"
-            variant="ghost"
-            className="h-8 w-8 hover:bg-(--bg-hover)"
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = `/cover-letter/${job._id}`;
-            }}
-          >
-            <Sparkles className="h-4 w-4 text-[#0ea5e9]" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="ghost"
-            className="h-8 w-8 hover:bg-(--bg-hover)"
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit(job);
-            }}
-          >
-            <Pencil className="h-4 w-4 text-(--text-secondary)" />
-          </Button>
-          <Button
-            type="button"
-            size="icon"
-            variant="ghost"
-            className="h-8 w-8 hover:bg-(--bg-hover)"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(job);
-            }}
-          >
-            <Trash2 className="h-4 w-4 text-(--status-rejected)" />
-          </Button>
+        <div className="flex items-center gap-1">
+          <DropdownMenu>
+            <DropdownMenuTrigger render={
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                className="h-8 w-8 text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+                onClick={(e) => e.stopPropagation()}
+                onPointerDown={(e) => e.stopPropagation()}
+              >
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            } />
+            <DropdownMenuContent align="end" className="w-48 bg-[#192d4d] border-[rgba(60,90,140,0.6)]" onClick={(e) => e.stopPropagation()}>
+              <DropdownMenuItem
+                className="cursor-pointer gap-2 hover:bg-(--bg-hover) selection:bg-(--bg-hover)"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = `/cover-letter/${job._id}`;
+                }}
+              >
+                <Sparkles className="h-4 w-4 text-[#0ea5e9]" />
+                <span>Generate Cover Letter</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer gap-2 hover:bg-(--bg-hover)"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit(job);
+                }}
+              >
+                <Pencil className="h-4 w-4 text-(--text-secondary)" />
+                <span>Edit Job</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-[rgba(60,90,140,0.3)]" />
+              <DropdownMenuItem
+                className="cursor-pointer gap-2 text-red-400 focus:text-red-400 focus:bg-red-400/10 hover:bg-red-400/10 hover:text-red-400"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDeleteDialog(true);
+                }}
+              >
+                <Trash2 className="h-4 w-4" />
+                <span>Delete Job</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
@@ -229,6 +258,34 @@ export const JobCard = memo(function JobCard({
           #{job._id.slice(-6)}
         </div>
       </div>
+
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent 
+          className="bg-[#192d4d] border-[rgba(60,90,140,0.6)] sm:max-w-[425px] z-[100]" 
+          onClick={(e) => e.stopPropagation()}
+        >
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-(--text-primary)">Delete Job</AlertDialogTitle>
+            <AlertDialogDescription className="text-(--text-secondary)">
+              Are you sure you want to delete this job from <span className="text-(--text-primary) font-medium">{job.company}</span>? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="border-[rgba(60,90,140,0.4)] text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) bg-transparent">Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 px-4 py-2 rounded-md"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowDeleteDialog(false);
+                onDelete(job);
+              }}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </motion.div>
   );
 });
