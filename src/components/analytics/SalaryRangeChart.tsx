@@ -47,7 +47,7 @@ export function SalaryRangeChart({ data }: { data: SalaryRange[] }) {
         <BarChart
           data={data}
           layout="vertical"
-          margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+          margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <XAxis
             type="number"
@@ -59,7 +59,7 @@ export function SalaryRangeChart({ data }: { data: SalaryRange[] }) {
           <YAxis
             type="category"
             dataKey="range"
-            width={65}
+            width={75}
             tick={{ fill: "#9fb3dc", fontSize: 11 }}
             axisLine={false}
             tickLine={false}

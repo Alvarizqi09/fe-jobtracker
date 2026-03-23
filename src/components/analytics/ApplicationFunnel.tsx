@@ -70,15 +70,14 @@ export function ApplicationFunnel({ funnel }: { funnel: FunnelStage[] }) {
         })}
       </div>
       {/* Conversion arrows */}
-      <div className="mt-4 flex items-center justify-center gap-2 text-xs text-(--text-muted)">
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-xs text-(--text-muted)">
         {funnel.slice(1).map((stage, i) => (
-          <span key={stage.stage} className="flex items-center gap-1">
+          <span key={stage.stage} className="flex items-center gap-1.5 bg-[rgba(60,90,140,0.15)] border border-[rgba(60,90,140,0.3)] px-2.5 py-1.5 rounded-md">
             <span>{funnel[i]?.stage}</span>
-            <span>→</span>
-            <span>
+            <span className="opacity-50 mx-0.5">→</span>
+            <span className="font-medium text-(--text-secondary)">
               {stage.stage} ({stage.percentage}%)
             </span>
-            {i < funnel.length - 2 && <span className="mx-2">|</span>}
           </span>
         ))}
       </div>

@@ -53,7 +53,7 @@ export function ResponseRateCard({ data }: { data: MonthlyData[] }) {
       <ResponsiveContainer width="100%" height={180}>
         <AreaChart
           data={chartData}
-          margin={{ top: 5, right: 5, left: -20, bottom: 5 }}
+          margin={{ top: 5, right: 15, left: -15, bottom: 5 }}
         >
           <defs>
             <linearGradient id="responseGrad" x1="0" y1="0" x2="0" y2="1">
@@ -68,6 +68,7 @@ export function ResponseRateCard({ data }: { data: MonthlyData[] }) {
             tickLine={false}
           />
           <YAxis
+            width={40}
             domain={[0, 100]}
             tick={{ fill: "#9fb3dc", fontSize: 11 }}
             axisLine={false}
@@ -82,7 +83,7 @@ export function ResponseRateCard({ data }: { data: MonthlyData[] }) {
             strokeOpacity={0.5}
             label={{
               value: "Industry avg",
-              position: "right",
+              position: "insideTopLeft",
               fill: "#F59E0B",
               fontSize: 10,
             }}

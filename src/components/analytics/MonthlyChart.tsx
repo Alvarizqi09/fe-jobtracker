@@ -62,7 +62,7 @@ export function MonthlyChart({ data }: { data: MonthlyData[] }) {
       <ResponsiveContainer width="100%" height={280}>
         <BarChart
           data={data}
-          margin={{ top: 5, right: 5, left: -15, bottom: 5 }}
+          margin={{ top: 5, right: 5, left: -10, bottom: 5 }}
         >
           <CartesianGrid
             strokeDasharray="3 3"
@@ -76,8 +76,9 @@ export function MonthlyChart({ data }: { data: MonthlyData[] }) {
             tickLine={false}
           />
           <YAxis
+            width={35}
             allowDecimals={false}
-            tick={{ fill: "#9fb3dc", fontSize: 12 }}
+            tick={{ fill: "#9fb3dc", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />

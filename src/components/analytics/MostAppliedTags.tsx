@@ -45,7 +45,7 @@ export function MostAppliedTags({ data }: { data: TagCount[] }) {
         <BarChart
           data={data}
           layout="vertical"
-          margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+          margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <XAxis
             type="number"
@@ -57,8 +57,9 @@ export function MostAppliedTags({ data }: { data: TagCount[] }) {
           <YAxis
             type="category"
             dataKey="tag"
-            width={80}
+            width={100}
             tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tickFormatter={(value: string) => value.length > 12 ? value.substring(0, 12) + "..." : value}
             axisLine={false}
             tickLine={false}
           />

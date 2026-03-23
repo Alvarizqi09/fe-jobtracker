@@ -111,14 +111,14 @@ export const JobCard = memo(function JobCard({
         style={{ background: accentColor }}
       />
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               router.push(`/jobs/${job._id}`);
             }}
-            className="truncate text-[15px] font-semibold text-(--text-primary) hover:text-(--accent-cyan) transition-colors cursor-pointer text-left"
+            className="block w-full truncate text-[15px] font-semibold text-(--text-primary) hover:text-(--accent-cyan) transition-colors cursor-pointer text-left focus:outline-hidden"
           >
             {job.company}
           </button>
@@ -126,14 +126,14 @@ export const JobCard = memo(function JobCard({
             {job.position}
           </div>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0 -mt-1 -mr-1">
           <DropdownMenu>
             <DropdownMenuTrigger render={
               <Button
                 type="button"
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8 text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
+                className="h-8 w-8 rounded-full text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) data-[state=open]:bg-(--bg-hover) data-[state=open]:text-(--text-primary) opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all focus-visible:ring-1 focus-visible:ring-(--accent-cyan)"
                 onClick={(e) => e.stopPropagation()}
                 onPointerDown={(e) => e.stopPropagation()}
               >
