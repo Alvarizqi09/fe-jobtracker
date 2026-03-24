@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
+import { GlobalLoader } from '@/components/ui/GlobalLoader'
 
 export default function HomePage() {
   const { user, isLoading } = useAuth()
@@ -13,5 +14,5 @@ export default function HomePage() {
     router.replace(user ? '/board' : '/login')
   }, [isLoading, router, user])
 
-  return null
+  return <GlobalLoader />
 }
