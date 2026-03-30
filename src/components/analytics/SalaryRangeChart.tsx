@@ -52,7 +52,7 @@ export function SalaryRangeChart({ data }: { data: SalaryRange[] }) {
           <XAxis
             type="number"
             allowDecimals={false}
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />
@@ -60,7 +60,7 @@ export function SalaryRangeChart({ data }: { data: SalaryRange[] }) {
             type="category"
             dataKey="range"
             width={75}
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />

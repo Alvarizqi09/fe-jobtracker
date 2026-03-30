@@ -71,20 +71,20 @@ export function MonthlyChart({ data }: { data: MonthlyData[] }) {
           />
           <XAxis
             dataKey="month"
-            tick={{ fill: "#9fb3dc", fontSize: 12 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
             axisLine={{ stroke: "var(--border)" }}
             tickLine={false}
           />
           <YAxis
             width={35}
             allowDecimals={false}
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend
-            wrapperStyle={{ fontSize: 12, color: "#9fb3dc" }}
+            wrapperStyle={{ fontSize: 12, color: "var(--text-muted)" }}
             iconType="circle"
             iconSize={8}
           />

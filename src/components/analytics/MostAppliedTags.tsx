@@ -50,7 +50,7 @@ export function MostAppliedTags({ data }: { data: TagCount[] }) {
           <XAxis
             type="number"
             allowDecimals={false}
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />
@@ -58,7 +58,7 @@ export function MostAppliedTags({ data }: { data: TagCount[] }) {
             type="category"
             dataKey="tag"
             width={100}
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             tickFormatter={(value: string) => value.length > 12 ? value.substring(0, 12) + "..." : value}
             axisLine={false}
             tickLine={false}

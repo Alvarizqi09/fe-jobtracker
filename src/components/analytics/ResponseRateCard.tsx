@@ -63,14 +63,14 @@ export function ResponseRateCard({ data }: { data: MonthlyData[] }) {
           </defs>
           <XAxis
             dataKey="month"
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             width={40}
             domain={[0, 100]}
-            tick={{ fill: "#9fb3dc", fontSize: 11 }}
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
             axisLine={false}
             tickLine={false}
             tickFormatter={(v) => `${v}%`}
