@@ -154,7 +154,7 @@ export default function LoginPage() {
                 type="email" 
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full rounded-md border border-[rgba(60,90,140,0.5)] bg-[rgba(15,25,45,0.6)] p-2.5 text-sm text-(--text-primary) placeholder:text-(--text-muted) focus:border-(--accent-cyan) focus:outline-none transition-colors"
+                className="w-full rounded-md border border-border bg-(--bg-secondary) p-2.5 text-sm text-(--text-primary) placeholder:text-(--text-muted) focus:border-(--accent-cyan) focus:outline-none transition-colors"
                 placeholder="you@example.com"
                 required
               />
@@ -165,7 +165,7 @@ export default function LoginPage() {
                 type="password" 
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full rounded-md border border-[rgba(60,90,140,0.5)] bg-[rgba(15,25,45,0.6)] p-2.5 text-sm text-(--text-primary) placeholder:text-(--text-muted) focus:border-(--accent-cyan) focus:outline-none transition-colors"
+                className="w-full rounded-md border border-border bg-(--bg-secondary) p-2.5 text-sm text-(--text-primary) placeholder:text-(--text-muted) focus:border-(--accent-cyan) focus:outline-none transition-colors"
                 placeholder="••••••••"
                 required
               />
@@ -190,9 +190,9 @@ export default function LoginPage() {
           </div>
 
           <div className="my-5 flex items-center justify-center gap-3">
-            <div className="h-px flex-1 bg-[rgba(60,90,140,0.3)]" />
+            <div className="h-px flex-1 bg-border" />
             <span className="text-[10px] text-(--text-muted) uppercase tracking-wider font-semibold">OR</span>
-            <div className="h-px flex-1 bg-[rgba(60,90,140,0.3)]" />
+            <div className="h-px flex-1 bg-border" />
           </div>
 
           {isInApp ? (
@@ -217,7 +217,7 @@ export default function LoginPage() {
             <Button
               variant="outline"
               type="button"
-              className="w-full border-[rgba(60,90,140,0.5)] bg-transparent text-(--text-primary) hover:bg-[rgba(60,90,140,0.2)] h-10"
+              className="w-full border-border bg-transparent text-(--text-primary) hover:bg-(--bg-hover) h-10"
               onClick={handleGoogleLogin}
               disabled={loading}
             >

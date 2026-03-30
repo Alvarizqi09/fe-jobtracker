@@ -8,7 +8,7 @@ const COLORS = ["#3B82F6", "#00D4FF", "#F59E0B", "#10B981"];
 export function ApplicationFunnel({ funnel }: { funnel: FunnelStage[] }) {
   if (funnel.length === 0) {
     return (
-      <div className="analytics-section rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6">
+      <div className="analytics-section rounded-xl border border-border bg-(--bg-card) p-6">
         <h3 className="font-syne text-lg text-(--text-primary) mb-4">
           Application Funnel
         </h3>
@@ -22,7 +22,7 @@ export function ApplicationFunnel({ funnel }: { funnel: FunnelStage[] }) {
   const maxCount = Math.max(...funnel.map((s) => s.count), 1);
 
   return (
-    <div className="analytics-section rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6">
+    <div className="analytics-section rounded-xl border border-border bg-(--bg-card) p-6">
       <h3 className="font-syne text-lg text-(--text-primary) mb-6">
         Application Funnel
       </h3>
@@ -72,7 +72,7 @@ export function ApplicationFunnel({ funnel }: { funnel: FunnelStage[] }) {
       {/* Conversion arrows */}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-xs text-(--text-muted)">
         {funnel.slice(1).map((stage, i) => (
-          <span key={stage.stage} className="flex items-center gap-1.5 bg-[rgba(60,90,140,0.15)] border border-[rgba(60,90,140,0.3)] px-2.5 py-1.5 rounded-md">
+          <span key={stage.stage} className="flex items-center gap-1.5 bg-muted/50 border border-border px-2.5 py-1.5 rounded-md">
             <span>{funnel[i]?.stage}</span>
             <span className="opacity-50 mx-0.5">→</span>
             <span className="font-medium text-(--text-secondary)">

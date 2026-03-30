@@ -57,7 +57,7 @@ export function TimelineEventItem({
         >
           <Icon className="h-4 w-4" />
         </div>
-        <div className="flex-1 w-px bg-[rgba(60,90,140,0.3)] mt-2" />
+        <div className="flex-1 w-px bg-border mt-2" />
       </div>
 
       {/* Content */}

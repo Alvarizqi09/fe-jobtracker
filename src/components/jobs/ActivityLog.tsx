@@ -72,7 +72,7 @@ export function ActivityLog({ events }: { events: ActivityEvent[] }) {
                 <Icon className="h-3.5 w-3.5" />
               </div>
               {i < events.length - 1 && (
-                <div className="flex-1 w-px bg-[rgba(60,90,140,0.25)] mt-1" />
+                <div className="flex-1 w-px bg-border mt-1" />
               )}
             </div>
 

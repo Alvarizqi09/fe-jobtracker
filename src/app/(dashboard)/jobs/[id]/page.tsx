@@ -103,8 +103,8 @@ export default function JobDetailPage() {
   if (isLoading) {
     return (
       <div className="p-4 md:p-6 space-y-4">
-        <div className="h-28 rounded-xl bg-(--bg-card) border border-[rgba(60,90,140,0.3)] animate-pulse" />
-        <div className="h-96 rounded-xl bg-(--bg-card) border border-[rgba(60,90,140,0.3)] animate-pulse" />
+        <div className="h-28 rounded-xl bg-(--bg-card) border border-border animate-pulse" />
+        <div className="h-96 rounded-xl bg-(--bg-card) border border-border animate-pulse" />
       </div>
     );
   }

@@ -91,12 +91,12 @@ export function Topbar() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 text-xs text-(--text-muted) border border-[rgba(60,90,140,0.3)] hover:bg-(--bg-hover) hover:text-(--text-secondary) gap-2 px-2.5"
+          className="h-8 text-xs text-(--text-muted) border border-border hover:bg-(--bg-hover) hover:text-(--text-secondary) gap-2 px-2.5"
           onClick={openSearch}
         >
           <Search className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">Search</span>
-          <kbd className="font-jetbrains text-[10px] bg-(--bg-hover) border border-[rgba(60,90,140,0.5)] rounded px-1 py-0.5">
+          <kbd className="font-jetbrains text-[10px] bg-(--bg-hover) border border-(--border-bright) rounded px-1 py-0.5">
             Ctrl+K
           </kbd>
         </Button>

@@ -54,7 +54,7 @@ function StatCard({ label, value, suffix = "", icon, color, index }: StatCardPro
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
     >
-      <Card className="bg-(--bg-card) border-[rgba(60,90,140,0.5)] hover:border-[rgba(60,90,140,0.8)] transition-colors overflow-hidden">
+      <Card className="bg-(--bg-card) border-border hover:border-(--border-bright) transition-colors overflow-hidden">
         <CardContent className="p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-(--text-secondary)">{label}</span>

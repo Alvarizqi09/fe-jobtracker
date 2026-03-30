@@ -63,7 +63,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-[95vw] sm:max-w-lg bg-(--bg-card) border-[rgba(60,90,140,0.5)] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-[95vw] sm:max-w-lg bg-(--bg-card) border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-(--text-primary)">
             {editContact ? "Edit Contact" : "Add Contact"}
@@ -78,7 +78,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
                 value={form.name}
                 onChange={(e) => set("name", e.target.value)}
                 required
-                className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+                className="bg-(--bg-primary) border-border text-(--text-primary)"
               />
             </div>
             <div>
@@ -88,7 +88,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
                 onChange={(e) => set("role", e.target.value)}
                 required
                 placeholder="e.g. HR Manager"
-                className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+                className="bg-(--bg-primary) border-border text-(--text-primary)"
               />
             </div>
           </div>
@@ -100,7 +100,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
                 value={form.company}
                 onChange={(e) => set("company", e.target.value)}
                 required
-                className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+                className="bg-(--bg-primary) border-border text-(--text-primary)"
               />
             </div>
             <div>
@@ -109,10 +109,10 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
                 value={form.relationship}
                 onValueChange={(v) => set("relationship", v ?? "")}
               >
-                <SelectTrigger className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)">
+                <SelectTrigger className="bg-(--bg-primary) border-border text-(--text-primary)">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-(--bg-card) border-[rgba(60,90,140,0.5)]">
+                <SelectContent className="bg-(--bg-card) border-border">
                   {RELATIONSHIPS.map((r) => (
                     <SelectItem key={r.value} value={r.value}>
                       {r.label}
@@ -130,7 +130,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
                 type="email"
                 value={form.email}
                 onChange={(e) => set("email", e.target.value)}
-                className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+                className="bg-(--bg-primary) border-border text-(--text-primary)"
               />
             </div>
             <div>
@@ -138,7 +138,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
               <Input
                 value={form.phone}
                 onChange={(e) => set("phone", e.target.value)}
-                className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+                className="bg-(--bg-primary) border-border text-(--text-primary)"
               />
             </div>
           </div>
@@ -149,7 +149,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
               value={form.linkedin}
               onChange={(e) => set("linkedin", e.target.value)}
               placeholder="https://linkedin.com/in/..."
-              className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+              className="bg-(--bg-primary) border-border text-(--text-primary)"
             />
           </div>
 
@@ -159,7 +159,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
               type="date"
               value={form.followUpDate ? String(form.followUpDate).split("T")[0] : ""}
               onChange={(e) => set("followUpDate", e.target.value)}
-              className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary) max-w-xs"
+              className="bg-(--bg-primary) border-border text-(--text-primary) max-w-xs"
             />
           </div>
 
@@ -169,7 +169,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
               value={form.notes}
               onChange={(e) => set("notes", e.target.value)}
               placeholder="Any additional notes..."
-              className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary) min-h-[60px]"
+              className="bg-(--bg-primary) border-border text-(--text-primary) min-h-[60px]"
             />
           </div>
 

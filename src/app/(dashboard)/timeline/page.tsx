@@ -47,8 +47,8 @@ export default function TimelinePage() {
 
       {isLoading ? (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-          <div className="lg:col-span-2 h-80 rounded-xl bg-(--bg-card) border border-[rgba(60,90,140,0.3)] animate-pulse" />
-          <div className="lg:col-span-3 h-80 rounded-xl bg-(--bg-card) border border-[rgba(60,90,140,0.3)] animate-pulse" />
+          <div className="lg:col-span-2 h-80 rounded-xl bg-(--bg-card) border border-border animate-pulse" />
+          <div className="lg:col-span-3 h-80 rounded-xl bg-(--bg-card) border border-border animate-pulse" />
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4" style={{ minHeight: "calc(100vh - 220px)" }}>

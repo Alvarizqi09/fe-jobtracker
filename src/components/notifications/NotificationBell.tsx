@@ -49,7 +49,7 @@ export function NotificationBell() {
       />
       <SheetContent
         side="right"
-        className="w-[90vw] sm:w-[380px] md:w-[420px] p-0 bg-(--bg-card) border-[rgba(60,90,140,0.5)]"
+        className="w-[90vw] sm:w-[380px] md:w-[420px] p-0 bg-(--bg-card) border-border"
       >
         <NotificationPanel
           notifications={notifications}

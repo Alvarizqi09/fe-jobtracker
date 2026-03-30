@@ -14,7 +14,7 @@ import type { TagCount } from "@/types/analytics.types";
 function CustomTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-[rgba(60,90,140,0.6)] bg-(--bg-card) p-3 shadow-xl">
+    <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">
       <div className="text-sm text-(--text-primary)">
         {payload[0].payload.tag}: <strong>{payload[0].value}</strong> jobs
       </div>
@@ -25,7 +25,7 @@ function CustomTooltip({ active, payload }: any) {
 export function MostAppliedTags({ data }: { data: TagCount[] }) {
   if (!data.length) {
     return (
-      <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6 h-full">
+      <div className="rounded-xl border border-border bg-(--bg-card) p-6 h-full">
         <h3 className="font-syne text-base text-(--text-primary) mb-4">
           Most Applied Tags
         </h3>
@@ -37,7 +37,7 @@ export function MostAppliedTags({ data }: { data: TagCount[] }) {
   }
 
   return (
-    <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6 h-full">
+    <div className="rounded-xl border border-border bg-(--bg-card) p-6 h-full">
       <h3 className="font-syne text-base text-(--text-primary) mb-4">
         Most Applied Tags
       </h3>

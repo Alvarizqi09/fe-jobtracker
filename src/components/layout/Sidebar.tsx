@@ -60,10 +60,10 @@ export function Sidebar({ variant }: { variant?: 'desktop' | 'mobile' }) {
 
         {/* Keyboard shortcut hint */}
         <div className="px-3 mt-4 shrink-0 pb-4">
-          <div className="rounded-lg border border-[rgba(60,90,140,0.3)] bg-(--bg-primary) px-3 py-2.5 text-xs text-(--text-muted) flex items-center gap-2">
+          <div className="rounded-lg border border-border bg-(--bg-primary) px-3 py-2.5 text-xs text-(--text-muted) flex items-center gap-2">
             <Search className="h-3.5 w-3.5" />
             <span>Quick Search</span>
-            <kbd className="ml-auto font-jetbrains text-[10px] bg-(--bg-hover) border border-[rgba(60,90,140,0.5)] rounded px-1.5 py-0.5">
+            <kbd className="ml-auto font-jetbrains text-[10px] bg-(--bg-hover) border border-(--border-bright) rounded px-1.5 py-0.5">
               Ctrl+K
             </kbd>
           </div>

@@ -36,7 +36,7 @@ export function QuestionCard({ question, onAnswerChange, onMarkReady }: Props) {
       className={`rounded-xl border transition overflow-hidden ${
         question.isAnswered
           ? "border-[var(--status-offer)]/50 bg-[rgba(16,185,129,0.05)]"
-          : "border-[rgba(60,90,140,0.5)] bg-(--bg-secondary)"
+          : "border-border bg-(--bg-secondary)"
       }`}
     >
       {/* Header */}
@@ -127,7 +127,7 @@ export function QuestionCard({ question, onAnswerChange, onMarkReady }: Props) {
                 onChange={(e) =>
                   onAnswerChange(question.id, e.target.value)
                 }
-                className="min-h-[100px] text-sm bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary) placeholder:text-(--text-muted)"
+                className="min-h-[100px] text-sm bg-(--bg-primary) border-border text-(--text-primary) placeholder:text-(--text-muted)"
               />
 
               {/* Mark Ready */}

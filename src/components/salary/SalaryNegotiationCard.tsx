@@ -66,7 +66,7 @@ export function SalaryNegotiationCard({ offerDetails, onUpdate }: Props) {
             value={details.offeredSalary ?? ""}
             onChange={(e) => handleChange("offeredSalary", e.target.value)}
             placeholder="e.g. Rp 15,000,000/month"
-            className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+            className="bg-(--bg-primary) border-border text-(--text-primary)"
           />
         </div>
         <div>
@@ -77,7 +77,7 @@ export function SalaryNegotiationCard({ offerDetails, onUpdate }: Props) {
             value={details.negotiatedSalary ?? ""}
             onChange={(e) => handleChange("negotiatedSalary", e.target.value)}
             placeholder="e.g. Rp 18,000,000/month"
-            className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+            className="bg-(--bg-primary) border-border text-(--text-primary)"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ export function SalaryNegotiationCard({ offerDetails, onUpdate }: Props) {
               e.target.value ? new Date(e.target.value).toISOString() : "",
             )
           }
-          className="bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary) max-w-xs"
+          className="bg-(--bg-primary) border-border text-(--text-primary) max-w-xs"
         />
       </div>
 
@@ -107,7 +107,7 @@ export function SalaryNegotiationCard({ offerDetails, onUpdate }: Props) {
           value={details.negotiationNotes ?? ""}
           onChange={(e) => handleChange("negotiationNotes", e.target.value)}
           placeholder="Talking points, counter-offer strategy, benefits discussed..."
-          className="min-h-[80px] text-sm bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary)"
+          className="min-h-[80px] text-sm bg-(--bg-primary) border-border text-(--text-primary)"
         />
       </div>
 

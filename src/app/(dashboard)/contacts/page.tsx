@@ -110,7 +110,7 @@ export default function ContactsPage() {
         ].map((s) => (
           <div
             key={s.label}
-            className="rounded-xl border border-[rgba(60,90,140,0.3)] bg-(--bg-card)/50 p-3 flex items-center gap-3"
+            className="rounded-xl border border-border bg-(--bg-card)/50 p-3 flex items-center gap-3"
           >
             <div
               className="w-9 h-9 rounded-lg flex items-center justify-center"

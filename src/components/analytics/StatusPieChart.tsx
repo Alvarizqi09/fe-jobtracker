@@ -33,7 +33,7 @@ function CustomTooltip({ active, payload }: any) {
   if (!active || !payload?.length) return null;
   const data = payload[0];
   return (
-    <div className="rounded-lg border border-[rgba(60,90,140,0.6)] bg-(--bg-card) p-3 shadow-xl">
+    <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">
       <div className="flex items-center gap-2">
         <span
           className="h-3 w-3 rounded-full"
@@ -59,7 +59,7 @@ export function StatusPieChart({ byStatus, total }: Props) {
 
   if (data.length === 0) {
     return (
-      <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6 h-full">
+      <div className="rounded-xl border border-border bg-(--bg-card) p-6 h-full">
         <h3 className="font-syne text-lg text-(--text-primary) mb-4">
           Status Distribution
         </h3>
@@ -71,7 +71,7 @@ export function StatusPieChart({ byStatus, total }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6 h-full">
+    <div className="rounded-xl border border-border bg-(--bg-card) p-6 h-full">
       <h3 className="font-syne text-lg text-(--text-primary) mb-4">
         Status Distribution
       </h3>

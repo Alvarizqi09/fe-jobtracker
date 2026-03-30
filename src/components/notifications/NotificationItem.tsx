@@ -41,8 +41,8 @@ export function NotificationItem({
     <div
       className={`rounded-lg border p-3 transition ${
         notification.isRead
-          ? "border-[rgba(60,90,140,0.2)] bg-transparent opacity-70"
-          : "border-[rgba(60,90,140,0.4)] bg-(--bg-secondary)"
+          ? "border-border/50 bg-transparent opacity-70"
+          : "border-border bg-(--bg-secondary)"
       }`}
     >
       <div className="flex items-start gap-3">

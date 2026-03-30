@@ -59,7 +59,7 @@ export function FilterBar({
             placeholder="Search by company or position..."
             value={filters.query}
             onChange={(e) => onFilterChange("query", e.target.value)}
-            className="pl-9 h-9 bg-(--bg-secondary) border-[rgba(60,90,140,0.5)] text-(--text-primary) placeholder:text-(--text-muted) text-sm"
+            className="pl-9 h-9 bg-(--bg-secondary) border-border text-(--text-primary) placeholder:text-(--text-muted) text-sm"
           />
           {filters.query && (
             <button
@@ -79,7 +79,7 @@ export function FilterBar({
               <Button
                 variant="ghost"
                 size="sm"
-                className={`h-9 text-sm border border-[rgba(60,90,140,0.5)] ${
+                className={`h-9 text-sm border border-border ${
                   filters.priority.length > 0
                     ? "bg-[rgba(0,212,255,0.1)] border-(--accent-cyan) text-(--accent-cyan)"
                     : "text-(--text-secondary) hover:bg-(--bg-hover)"
@@ -97,7 +97,7 @@ export function FilterBar({
           />
           <PopoverContent
             align="start"
-            className="w-44 p-2 bg-(--bg-card) border-[rgba(60,90,140,0.5)]"
+            className="w-44 p-2 bg-(--bg-card) border-border"
           >
             {PRIORITIES.map((p) => {
               const checked = filters.priority.includes(p.value);
@@ -136,7 +136,7 @@ export function FilterBar({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`h-9 text-sm border border-[rgba(60,90,140,0.5)] ${
+                  className={`h-9 text-sm border border-border ${
                     filters.tags.length > 0
                       ? "bg-[rgba(0,212,255,0.1)] border-(--accent-cyan) text-(--accent-cyan)"
                       : "text-(--text-secondary) hover:bg-(--bg-hover)"
@@ -153,7 +153,7 @@ export function FilterBar({
             />
             <PopoverContent
               align="start"
-              className="w-52 p-2 bg-(--bg-card) border-[rgba(60,90,140,0.5)] max-h-60 overflow-y-auto"
+              className="w-52 p-2 bg-(--bg-card) border-border max-h-60 overflow-y-auto"
             >
               {allTags.map((tag) => {
                 const checked = filters.tags.includes(tag);

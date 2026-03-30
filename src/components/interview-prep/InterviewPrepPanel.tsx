@@ -121,7 +121,7 @@ export function InterviewPrepPanel({
       {/* Category Tabs */}
       {questions.length > 0 && (
         <Tabs value={category} onValueChange={setCategory}>
-          <TabsList className="bg-(--bg-secondary) border border-[rgba(60,90,140,0.4)]">
+          <TabsList className="bg-(--bg-secondary) border border-border">
             {CATEGORIES.map((cat) => (
               <TabsTrigger
                 key={cat.value}

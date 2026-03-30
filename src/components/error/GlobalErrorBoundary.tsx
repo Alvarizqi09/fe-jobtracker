@@ -19,7 +19,7 @@ function ErrorFallback({ error, resetErrorBoundary }: any) {
       <Button
         onClick={resetErrorBoundary}
         variant="outline"
-        className="border-[rgba(60,90,140,0.4)] text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover)"
+        className="border-border text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover)"
       >
         <RefreshCw className="mr-2 h-4 w-4" />
         Try Again

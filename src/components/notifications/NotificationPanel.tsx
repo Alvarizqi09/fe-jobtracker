@@ -40,7 +40,7 @@ export function NotificationPanel({
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(60,90,140,0.3)]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <h2 className="text-lg font-syne text-(--text-primary)">
           Notifications
         </h2>

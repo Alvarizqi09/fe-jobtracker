@@ -39,7 +39,7 @@ export function ContactCard({ contact, onClick, onDelete }: Props) {
   return (
     <motion.div
       whileHover={{ y: -2 }}
-      className="rounded-xl border border-[rgba(60,90,140,0.4)] bg-(--bg-card) p-4 cursor-pointer hover:border-[rgba(0,212,255,0.3)] transition group"
+      className="rounded-xl border border-border bg-(--bg-card) p-4 cursor-pointer hover:border-(--accent-cyan)/30 transition group"
       onClick={onClick}
     >
       <div className="flex items-start justify-between mb-3">
@@ -93,7 +93,7 @@ export function ContactCard({ contact, onClick, onDelete }: Props) {
         </div>
       )}
 
-      <div className="mt-3 pt-3 border-t border-[rgba(60,90,140,0.2)] flex items-center justify-between text-xs text-(--text-muted)">
+      <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-xs text-(--text-muted)">
         <div>
           {contact.linkedJobIds.length > 0 && (
             <span>Linked jobs: {contact.linkedJobIds.length}</span>

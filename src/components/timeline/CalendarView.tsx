@@ -58,7 +58,7 @@ export function CalendarView({
   }, [events]);
 
   return (
-    <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-4 md:p-5">
+    <div className="rounded-xl border border-border bg-(--bg-card) p-4 md:p-5">
       {/* Month nav */}
       <div className="flex items-center justify-between mb-4">
         <Button

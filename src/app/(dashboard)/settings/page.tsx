@@ -69,7 +69,7 @@ export default function SettingsPage() {
       </div>
 
       <Tabs defaultValue="general">
-        <TabsList className="bg-(--bg-secondary) border border-[rgba(60,90,140,0.4)] mb-6 overflow-x-auto flex-nowrap w-full sm:w-auto">
+        <TabsList className="bg-(--bg-secondary) border border-border mb-6 overflow-x-auto flex-nowrap w-full sm:w-auto">
           <TabsTrigger
             value="general"
             className="text-xs data-[state=active]:bg-(--bg-hover) data-[state=active]:text-(--text-primary) text-(--text-muted) gap-1.5"
@@ -107,7 +107,7 @@ export default function SettingsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            <div className="rounded-xl border border-[rgba(60,90,140,0.4)] bg-(--bg-card) p-6">
+            <div className="rounded-xl border border-border bg-(--bg-card) p-6">
               <h3 className="text-sm font-medium text-(--text-primary) mb-4">
                 Appearance
               </h3>
@@ -122,7 +122,7 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-[rgba(60,90,140,0.4)] bg-(--bg-card) p-6">
+            <div className="rounded-xl border border-border bg-(--bg-card) p-6">
               <h3 className="text-sm font-medium text-(--text-primary) mb-4">
                 Export Data
               </h3>
@@ -146,7 +146,7 @@ export default function SettingsPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-[rgba(60,90,140,0.4)] bg-(--bg-card) p-6 space-y-5"
+            className="rounded-xl border border-border bg-(--bg-card) p-6 space-y-5"
           >
             <h3 className="text-sm font-medium text-(--text-primary)">
               Notification Preferences
@@ -166,7 +166,7 @@ export default function SettingsPage() {
                     type="number"
                     min={1}
                     max={90}
-                    className="w-20 bg-(--bg-primary) border-[rgba(60,90,140,0.4)] text-(--text-primary) text-center"
+                    className="w-20 bg-(--bg-primary) border-border text-(--text-primary) text-center"
                     value={staleThreshold}
                     onChange={(e) =>
                       setStaleThreshold(Number(e.target.value))
@@ -184,7 +184,7 @@ export default function SettingsPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-[rgba(60,90,140,0.4)] bg-(--bg-card) p-6"
+            className="rounded-xl border border-border bg-(--bg-card) p-6"
           >
             <h3 className="text-sm font-medium text-(--text-primary) mb-4">
               Profile
@@ -195,7 +195,7 @@ export default function SettingsPage() {
             <Button
               variant="outline"
               onClick={() => router.push("/profile")}
-              className="border-[rgba(60,90,140,0.4)]"
+              className="border-border"
             >
               <User className="h-4 w-4 mr-2" />
               Edit Profile

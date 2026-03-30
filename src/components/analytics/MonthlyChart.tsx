@@ -15,7 +15,7 @@ import type { MonthlyData } from "@/types/analytics.types";
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-[rgba(60,90,140,0.6)] bg-(--bg-card) p-3 shadow-xl">
+    <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">
       <div className="text-sm font-semibold text-(--text-primary) mb-2">
         {label}
       </div>
@@ -43,7 +43,7 @@ function CustomTooltip({ active, payload, label }: any) {
 export function MonthlyChart({ data }: { data: MonthlyData[] }) {
   if (!data.length) {
     return (
-      <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6 h-full">
+      <div className="rounded-xl border border-border bg-(--bg-card) p-6 h-full">
         <h3 className="font-syne text-lg text-(--text-primary) mb-4">
           Monthly Applications
         </h3>
@@ -55,7 +55,7 @@ export function MonthlyChart({ data }: { data: MonthlyData[] }) {
   }
 
   return (
-    <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-6 h-full">
+    <div className="rounded-xl border border-border bg-(--bg-card) p-6 h-full">
       <h3 className="font-syne text-lg text-(--text-primary) mb-4">
         Monthly Applications
       </h3>
@@ -66,13 +66,13 @@ export function MonthlyChart({ data }: { data: MonthlyData[] }) {
         >
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="rgba(60,90,140,0.2)"
+            stroke="var(--border)"
             vertical={false}
           />
           <XAxis
             dataKey="month"
             tick={{ fill: "#9fb3dc", fontSize: 12 }}
-            axisLine={{ stroke: "rgba(60,90,140,0.3)" }}
+            axisLine={{ stroke: "var(--border)" }}
             tickLine={false}
           />
           <YAxis

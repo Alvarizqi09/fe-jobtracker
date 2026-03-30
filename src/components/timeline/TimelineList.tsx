@@ -20,7 +20,7 @@ export function TimelineList({ events, selectedDay }: Props) {
     : "All Events This Month";
 
   return (
-    <div className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-4 md:p-5 flex flex-col h-full">
+    <div className="rounded-xl border border-border bg-(--bg-card) p-4 md:p-5 flex flex-col h-full">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-syne text-lg text-(--text-primary)">{title}</h3>
         <span className="text-xs text-(--text-muted)">

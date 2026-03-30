@@ -38,11 +38,11 @@ export default function AnalyticsPage() {
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className="h-28 rounded-xl bg-(--bg-card) border border-[rgba(60,90,140,0.3)] animate-pulse"
+              className="h-28 rounded-xl bg-(--bg-card) border border-border animate-pulse"
             />
           ))}
         </div>
-        <div className="h-64 rounded-xl bg-(--bg-card) border border-[rgba(60,90,140,0.3)] animate-pulse" />
+        <div className="h-64 rounded-xl bg-(--bg-card) border border-border animate-pulse" />
       </div>
     );
   }
@@ -50,7 +50,7 @@ export default function AnalyticsPage() {
   if (error) {
     return (
       <div className="p-6">
-        <div className="rounded-xl border border-[rgba(239,68,68,0.3)] bg-(--bg-card) p-8 text-center">
+        <div className="rounded-xl border border-border bg-(--bg-card) p-8 text-center">
           <p className="text-(--status-rejected)">{error}</p>
         </div>
       </div>

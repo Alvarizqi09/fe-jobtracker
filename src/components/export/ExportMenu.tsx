@@ -41,7 +41,7 @@ export function ExportMenu({ jobs }: Props) {
           <Button
             variant="outline"
             size="sm"
-            className="gap-2 border-[rgba(60,90,140,0.4)] text-(--text-secondary)"
+            className="gap-2 border-border text-(--text-secondary)"
           >
             <Download className="h-4 w-4" />
             Export
@@ -50,7 +50,7 @@ export function ExportMenu({ jobs }: Props) {
       />
       <DropdownMenuContent
         align="end"
-        className="bg-(--bg-card) border-[rgba(60,90,140,0.5)] text-(--text-primary)"
+        className="bg-(--bg-card) border-border text-(--text-primary)"
       >
         <DropdownMenuItem
           onClick={handleCSV}

@@ -78,7 +78,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
       transition={{ duration: 0.4, delay: 0.1 }}
     >
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="bg-(--bg-secondary) border border-[rgba(60,90,140,0.4)] p-1 rounded-lg w-full sm:w-auto overflow-x-auto flex-nowrap">
+        <TabsList className="bg-(--bg-secondary) border border-border p-1 rounded-lg w-full sm:w-auto overflow-x-auto flex-nowrap">
           <TabsTrigger
             value="overview"
             className="text-sm data-[state=active]:bg-(--bg-card) data-[state=active]:text-(--text-primary) text-(--text-secondary)"
@@ -108,7 +108,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
         {/* Tab 1: Overview */}
         <TabsContent
           value="overview"
-          className="mt-4 rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-5 md:p-6"
+          className="mt-4 rounded-xl border border-border bg-(--bg-card) p-5 md:p-6"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Salary */}
@@ -226,7 +226,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
 
           {/* Tags */}
           {job.tags && job.tags.length > 0 && (
-            <div className="mt-5 pt-5 border-t border-[rgba(60,90,140,0.3)]">
+            <div className="mt-5 pt-5 border-t border-border">
               <div className="flex items-center gap-2 mb-2">
                 <Tag className="h-3.5 w-3.5 text-(--text-muted)" />
                 <span className="text-xs text-(--text-muted) uppercase tracking-wider">
@@ -237,7 +237,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
                 {job.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-md border border-[rgba(60,90,140,0.5)] bg-[rgba(15,25,45,0.6)] px-2.5 py-1 text-xs text-(--text-secondary)"
+                    className="rounded-md border border-border bg-muted px-2.5 py-1 text-xs text-(--text-secondary)"
                   >
                     {t}
                   </span>
@@ -248,7 +248,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
 
           {/* Description */}
           {job.description && (
-            <div className="mt-5 pt-5 border-t border-[rgba(60,90,140,0.3)]">
+            <div className="mt-5 pt-5 border-t border-border">
               <div className="text-xs text-(--text-muted) uppercase tracking-wider mb-2">
                 Description
               </div>
@@ -260,7 +260,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
 
           {/* Salary Negotiation (only for offer status) */}
           {job.status === "offer" && (
-            <div className="mt-5 pt-5 border-t border-[rgba(60,90,140,0.3)]">
+            <div className="mt-5 pt-5 border-t border-border">
               <SalaryNegotiationCard
                 offerDetails={job.offerDetails}
                 onUpdate={onOfferDetailsChange}
@@ -272,7 +272,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
         {/* Tab 2: Interview Prep */}
         <TabsContent
           value="notes"
-          className="mt-4 rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-5 md:p-6"
+          className="mt-4 rounded-xl border border-border bg-(--bg-card) p-5 md:p-6"
         >
           {/* Notes area */}
           <div className="mb-6">
@@ -281,7 +281,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
               value={notes}
               onChange={(e) => handleNotesChange(e.target.value)}
               placeholder="Add private notes about this position..."
-              className="w-full min-h-[100px] text-sm bg-(--bg-primary) border border-[rgba(60,90,140,0.4)] rounded-lg p-3 text-(--text-primary) placeholder:text-(--text-muted) resize-y focus:outline-none focus:border-(--accent-cyan)"
+              className="w-full min-h-[100px] text-sm bg-(--bg-primary) border border-border rounded-lg p-3 text-(--text-primary) placeholder:text-(--text-muted) resize-y focus:outline-none focus:border-(--accent-cyan)"
             />
           </div>
 
@@ -299,7 +299,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
         {/* Tab 3: Cover Letters */}
         <TabsContent
           value="cover-letters"
-          className="mt-4 rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-5 md:p-6"
+          className="mt-4 rounded-xl border border-border bg-(--bg-card) p-5 md:p-6"
         >
           {coverLetters.length === 0 ? (
             <div className="text-center py-8">
@@ -319,13 +319,13 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
                 <div
                   key={cl._id}
                   onClick={() => setSelectedLetter(cl)}
-                  className="rounded-lg border border-[rgba(60,90,140,0.4)] bg-(--bg-secondary) p-4 cursor-pointer hover:border-[rgba(0,212,255,0.4)] transition group"
+                  className="rounded-lg border border-border bg-(--bg-secondary) p-4 cursor-pointer hover:border-(--accent-cyan)/40 transition group"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <Badge
                         variant="secondary"
-                        className="text-xs capitalize bg-[rgba(15,25,45,0.7)] border border-[rgba(60,90,140,0.6)]"
+                        className="text-xs capitalize bg-muted border border-border"
                       >
                         {cl.style}
                       </Badge>
@@ -350,7 +350,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
         {/* Tab 4: Activity */}
         <TabsContent
           value="activity"
-          className="mt-4 rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-5 md:p-6"
+          className="mt-4 rounded-xl border border-border bg-(--bg-card) p-5 md:p-6"
         >
           <ActivityLog events={job.activityLog ?? []} />
         </TabsContent>
@@ -358,7 +358,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
 
       {/* Cover Letter Modal */}
       <Dialog open={!!selectedLetter} onOpenChange={(open) => !open && setSelectedLetter(null)}>
-        <DialogContent className="max-w-2xl bg-(--bg-card) border-[rgba(60,90,140,0.5)]">
+        <DialogContent className="max-w-2xl bg-(--bg-card) border-border">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-lg text-(--text-primary)">
               <FileText className="w-5 h-5 text-(--accent-cyan)" />
@@ -367,9 +367,9 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
           </DialogHeader>
           {selectedLetter && (
             <div className="mt-2">
-              <div className="flex items-center justify-between mb-4 border-b border-[rgba(60,90,140,0.3)] pb-4">
+              <div className="flex items-center justify-between mb-4 border-b border-border pb-4">
                 <div className="flex gap-2">
-                  <Badge variant="secondary" className="bg-[rgba(15,25,45,0.7)] text-(--text-primary) border-[rgba(60,90,140,0.5)] capitalize">
+                  <Badge variant="secondary" className="bg-muted text-(--text-primary) border-border capitalize">
                     {selectedLetter.style}
                   </Badge>
                   <span className="text-xs text-(--text-muted) flex items-center">
@@ -386,7 +386,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
                     navigator.clipboard.writeText(text);
                     toast.success("Copied to clipboard");
                   }}
-                  className="h-8 text-xs border-[rgba(60,90,140,0.5)] hover:bg-(--bg-hover) text-(--text-secondary)"
+                  className="h-8 text-xs border-border hover:bg-(--bg-hover) text-(--text-secondary)"
                 >
                   <Copy className="w-3.5 h-3.5 mr-1.5" />
                   Copy

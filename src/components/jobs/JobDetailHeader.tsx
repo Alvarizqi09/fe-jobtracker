@@ -50,7 +50,7 @@ export function JobDetailHeader({ job, onEdit, onDelete }: Props) {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-(--bg-card) p-5 md:p-6"
+      className="rounded-xl border border-border bg-(--bg-card) p-5 md:p-6"
     >
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div className="flex items-start gap-4">
@@ -81,7 +81,7 @@ export function JobDetailHeader({ job, onEdit, onDelete }: Props) {
               </Badge>
               <Badge
                 variant="secondary"
-                className="bg-[rgba(15,25,45,0.7)] text-(--text-primary) border border-[rgba(60,90,140,0.6)]"
+                className="bg-muted text-(--text-primary) border border-border"
               >
                 <span
                   className="mr-1.5 inline-block h-2 w-2 rounded-full"

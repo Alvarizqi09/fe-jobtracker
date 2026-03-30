@@ -78,7 +78,7 @@ export function InsightCards({ stats }: { stats: JobStats | null }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 + 0.3, duration: 0.5 }}
-          className="rounded-xl border border-[rgba(60,90,140,0.5)] bg-gradient-to-br from-[#121e33] to-[#0e1625] p-5"
+          className="rounded-xl border border-border bg-(--bg-card) dark:bg-gradient-to-br dark:from-[#121e33] dark:to-[#0e1625] p-5"
         >
           <div className="flex items-start gap-3">
             <div className="h-8 w-8 rounded-lg bg-[#F59E0B20] flex items-center justify-center shrink-0 mt-0.5">
