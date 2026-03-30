@@ -60,8 +60,8 @@ export function KanbanColumn({
         }}
         className={cn(
           "h-full rounded-2xl border border-border flex flex-col",
-          "bg-[linear-gradient(180deg,rgba(12,20,36,0.95)_0%,rgba(10,16,30,0.95)_100%)]",
-          "shadow-[0_0_0_1px_rgba(38,58,88,0.35),0_18px_60px_rgba(0,0,0,0.35)]",
+          "bg-(--bg-card) dark:bg-[linear-gradient(180deg,rgba(12,20,36,0.95)_0%,rgba(10,16,30,0.95)_100%)]",
+          "shadow-sm dark:shadow-[0_0_0_1px_rgba(38,58,88,0.35),0_18px_60px_rgba(0,0,0,0.35)]",
           isDropTarget &&
             "drop-target border-(--border-bright) shadow-[0_0_24px_var(--accent-glow)]",
         )}

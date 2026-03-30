@@ -96,9 +96,9 @@ export const JobCard = memo(function JobCard({
         boxShadow: `0 0 0 1px ${accentColor}66, 0 8px 24px rgba(0,0,0,0.45)`,
       }}
       className={cn(
-        "group relative rounded-xl border border-[rgba(60,90,140,0.65)] overflow-hidden p-4 pl-5",
-        "bg-[#192d4d]",
-        "shadow-[0_2px_12px_rgba(0,0,0,0.5)]",
+        "group relative rounded-xl border border-border dark:border-[rgba(60,90,140,0.65)] overflow-hidden p-4 pl-5",
+        "bg-(--bg-card) dark:bg-[#192d4d]",
+        "shadow-sm dark:shadow-[0_2px_12px_rgba(0,0,0,0.5)]",
         "transition will-change-transform",
         isDragging && "ring-2 ring-(--accent-cyan) opacity-50",
       )}
@@ -140,7 +140,7 @@ export const JobCard = memo(function JobCard({
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             } />
-            <DropdownMenuContent align="end" className="w-48 bg-[#192d4d] border-[rgba(60,90,140,0.6)]" onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuContent align="end" className="w-48 bg-(--bg-card) dark:bg-[#192d4d] border-border dark:border-[rgba(60,90,140,0.6)]" onClick={(e) => e.stopPropagation()}>
               <DropdownMenuItem
                 className="cursor-pointer gap-2 hover:bg-(--bg-hover) selection:bg-(--bg-hover)"
                 onClick={(e) => {
@@ -161,7 +161,7 @@ export const JobCard = memo(function JobCard({
                 <Pencil className="h-4 w-4 text-(--text-secondary)" />
                 <span>Edit Job</span>
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-[rgba(60,90,140,0.3)]" />
+              <DropdownMenuSeparator className="bg-border dark:bg-[rgba(60,90,140,0.3)]" />
               <DropdownMenuItem
                 className="cursor-pointer gap-2 text-red-400 focus:text-red-400 focus:bg-red-400/10 hover:bg-red-400/10 hover:text-red-400"
                 onClick={(e) => {
@@ -180,7 +180,7 @@ export const JobCard = memo(function JobCard({
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <Badge
           variant="secondary"
-          className="bg-[rgba(15,25,45,0.7)] text-(--text-primary) border border-[rgba(60,90,140,0.6)]"
+          className="bg-muted dark:bg-[rgba(15,25,45,0.7)] text-(--text-primary) border border-border dark:border-[rgba(60,90,140,0.6)]"
         >
           <span
             className="mr-2 inline-block h-2 w-2 rounded-full"
@@ -233,7 +233,7 @@ export const JobCard = memo(function JobCard({
           {job.tags.slice(0, 2).map((t) => (
             <span
               key={t}
-              className="rounded-md border border-[rgba(60,90,140,0.6)] bg-[rgba(15,25,45,0.6)] px-2 py-1 text-xs text-(--text-secondary)"
+              className="rounded-md border border-border dark:border-[rgba(60,90,140,0.6)] bg-muted dark:bg-[rgba(15,25,45,0.6)] px-2 py-1 text-xs text-(--text-secondary)"
             >
               {t}
             </span>
@@ -255,14 +255,11 @@ export const JobCard = memo(function JobCard({
         ) : (
           <div />
         )}
-        <div className="font-jetbrains text-[10px] text-(--text-muted)">
-          #{job._id.slice(-6)}
-        </div>
       </div>
 
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent 
-          className="bg-[#192d4d] border-[rgba(60,90,140,0.6)] sm:max-w-[425px] z-[100]" 
+          className="bg-(--bg-card) dark:bg-[#192d4d] border-border dark:border-[rgba(60,90,140,0.6)] sm:max-w-[425px] z-[100]" 
           onClick={(e) => e.stopPropagation()}
         >
           <AlertDialogHeader>
@@ -272,7 +269,7 @@ export const JobCard = memo(function JobCard({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-[rgba(60,90,140,0.4)] text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) bg-transparent">Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="border-border dark:border-[rgba(60,90,140,0.4)] text-(--text-secondary) hover:text-(--text-primary) hover:bg-(--bg-hover) bg-transparent">Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 px-4 py-2 rounded-md"
               disabled={isDeleting}
