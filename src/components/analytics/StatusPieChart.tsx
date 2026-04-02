@@ -11,6 +11,7 @@ import {
 const STATUS_COLORS: Record<string, string> = {
   wishlist: "#8B5CF6",
   applied: "#3B82F6",
+  online_test: "#06B6D4",
   interview: "#F59E0B",
   offer: "#10B981",
   rejected: "#EF4444",
@@ -19,6 +20,7 @@ const STATUS_COLORS: Record<string, string> = {
 const STATUS_LABELS: Record<string, string> = {
   wishlist: "Wishlist",
   applied: "Applied",
+  online_test: "Online Test",
   interview: "Interview",
   offer: "Offer",
   rejected: "Rejected",

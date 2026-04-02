@@ -26,8 +26,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { cn, formatDate } from "@/lib/utils";
-import type { Job, JobPriority, JobStatus } from "@/types/job.types";
+import type { Job, JobPriority, JobStatus, TestType } from "@/types/job.types";
 import { differenceInDays } from "date-fns";
+
+const TEST_TYPE_LABELS: Record<TestType, string> = {
+  online_test: "Online Test",
+  psikotest: "Psikotest",
+  intelligence: "Intelligence Test",
+  technical: "Technical Test",
+  assessment: "Assessment",
+  other: "Other",
+};
 
 function priorityColor(priority: JobPriority): string {
   if (priority === "high") return "var(--priority-high)";
@@ -39,6 +48,7 @@ function statusAccentColor(status: JobStatus): string {
   const map: Record<JobStatus, string> = {
     wishlist: "#8B5CF6",
     applied: "#3B82F6",
+    online_test: "#06B6D4",
     interview: "#F59E0B",
     offer: "#10B981",
     rejected: "#EF4444",
@@ -188,6 +198,18 @@ export const JobCard = memo(function JobCard({
           />
           {job.priority}
         </Badge>
+
+        {job.status === "online_test" && job.testType && (
+          <Badge
+            className="text-[10px] border-0"
+            style={{
+              background: "#06B6D420",
+              color: "#06B6D4",
+            }}
+          >
+            {TEST_TYPE_LABELS[job.testType] ?? job.testType}
+          </Badge>
+        )}
 
         {job.appliedDate ? (
           <span className="font-jetbrains text-xs text-(--text-secondary)">

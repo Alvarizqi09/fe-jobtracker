@@ -8,7 +8,7 @@ import { useJobs } from '@/hooks/useJobs'
 import { useJobStore } from '@/store/jobStore'
 import type { Job } from '@/types/job.types'
 import { AddJobModal } from '@/components/board/AddJobModal'
-import { Pin, MessageSquare, Target, XCircle } from 'lucide-react'
+import { Pin, MessageSquare, Target, XCircle, ShieldCheck, X } from 'lucide-react'
 
 function StatCard({ label, value, icon }: { label: string; value: number; icon: React.ReactNode }) {
   const numberRef = useRef<HTMLDivElement | null>(null)
@@ -71,6 +71,15 @@ export default function DashboardPage() {
   const { fetchJobs, createJob } = useJobs()
   const jobs = useJobStore((s) => s.jobs)
   const [addOpen, setAddOpen] = useState(false)
+  const [showBanner, setShowBanner] = useState(() => {
+    if (typeof window === 'undefined') return true
+    return localStorage.getItem('jd_trust_dismissed') !== '1'
+  })
+
+  const dismissBanner = () => {
+    setShowBanner(false)
+    localStorage.setItem('jd_trust_dismissed', '1')
+  }
 
   useLayoutEffect(() => {
     fetchJobs().catch(() => {
@@ -105,6 +114,31 @@ export default function DashboardPage() {
           Add New Job
         </Button>
       </div>
+
+      {/* Trust / Security Banner */}
+      {showBanner && (
+        <div className="relative rounded-xl border border-[rgba(16,185,129,0.2)] bg-[rgba(16,185,129,0.05)] p-4 flex items-start gap-3">
+          <div className="shrink-0 mt-0.5 h-8 w-8 rounded-lg bg-[rgba(16,185,129,0.12)] flex items-center justify-center">
+            <ShieldCheck className="h-4 w-4 text-emerald-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium text-(--text-primary)">
+              Data kamu aman 🔒
+            </div>
+            <p className="text-xs text-(--text-secondary) mt-0.5 leading-relaxed">
+              Semua data disimpan secara terenkripsi dan tidak pernah dibagikan ke pihak ketiga. Privasi kamu adalah prioritas kami.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={dismissBanner}
+            className="shrink-0 p-1 rounded-md hover:bg-(--bg-hover) text-(--text-muted) hover:text-(--text-primary) transition-colors"
+            aria-label="Dismiss banner"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard label="Total Applications" value={stats.total} icon={<Pin className="h-5 w-5" />} />

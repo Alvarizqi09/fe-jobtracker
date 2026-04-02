@@ -228,8 +228,11 @@ export default function LoginPage() {
             </Button>
           )}
 
-          <div className="mt-6 text-[10px] text-(--text-muted) text-center px-4">
-            By continuing, you agree to store your job tracking data in your private workspace.
+          <div className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full border border-[rgba(16,185,129,0.2)] bg-[rgba(16,185,129,0.05)]">
+            <svg className="h-3.5 w-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span className="text-[11px] tracking-wide text-emerald-400/90">Data kamu aman & terenkripsi 🔒</span>
           </div>
         </div>
       </Card>

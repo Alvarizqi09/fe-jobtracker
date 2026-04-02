@@ -82,14 +82,42 @@ export function ContactCard({ contact, onClick, onDelete }: Props) {
 
       {contact.email && (
         <div className="flex items-center gap-1.5 text-xs text-(--text-muted) mb-1">
-          <Mail className="h-3 w-3" />
-          <span className="line-clamp-1">{contact.email}</span>
+          <Mail className="h-3 w-3 shrink-0" />
+          <a
+            href={`mailto:${contact.email}`}
+            onClick={(e) => e.stopPropagation()}
+            className="line-clamp-1 text-(--accent-cyan) hover:underline transition-colors"
+          >
+            {contact.email}
+          </a>
+        </div>
+      )}
+      {contact.phone && (
+        <div className="flex items-center gap-1.5 text-xs text-(--text-muted) mb-1">
+          <Phone className="h-3 w-3 shrink-0" />
+          <a
+            href={`https://wa.me/${contact.phone.replace(/\D/g, '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="line-clamp-1 text-(--accent-cyan) hover:underline transition-colors"
+          >
+            {contact.phone}
+          </a>
         </div>
       )}
       {contact.linkedin && (
         <div className="flex items-center gap-1.5 text-xs text-(--text-muted) mb-1">
-          <Linkedin className="h-3 w-3" />
-          <span className="line-clamp-1">{contact.linkedin}</span>
+          <Linkedin className="h-3 w-3 shrink-0" />
+          <a
+            href={contact.linkedin.startsWith('http') ? contact.linkedin : `https://${contact.linkedin}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="line-clamp-1 text-(--accent-cyan) hover:underline transition-colors"
+          >
+            {contact.linkedin}
+          </a>
         </div>
       )}
 

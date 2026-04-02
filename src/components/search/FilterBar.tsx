@@ -16,6 +16,7 @@ import type { JobPriority, JobStatus } from "@/types/job.types";
 const STATUSES: { value: JobStatus; label: string }[] = [
   { value: "wishlist", label: "Wishlist" },
   { value: "applied", label: "Applied" },
+  { value: "online_test", label: "Online Test" },
   { value: "interview", label: "Interview" },
   { value: "offer", label: "Offer" },
   { value: "rejected", label: "Rejected" },

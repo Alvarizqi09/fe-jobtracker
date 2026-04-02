@@ -28,11 +28,13 @@ import type {
   Job,
   JobPriority,
   JobStatus,
+  TestType,
 } from "@/types/job.types";
 
 const statusSchema = z.enum([
   "wishlist",
   "applied",
+  "online_test",
   "interview",
   "offer",
   "rejected",
@@ -44,6 +46,7 @@ const formSchema = z.object({
   position: z.string().min(1, "Position is required"),
   status: statusSchema,
   priority: prioritySchema,
+  testType: z.enum(["online_test", "psikotest", "intelligence", "technical", "assessment", "other"]).optional(),
   salary: z.string().optional(),
   location: z.string().optional(),
   jobUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
@@ -63,6 +66,7 @@ function toDto(values: FormValues): CreateJobDTO {
     priority: values.priority,
   };
   if (values.salary) dto.salary = values.salary;
+  if (values.testType && values.status === "online_test") dto.testType = values.testType;
   if (values.location) dto.location = values.location;
   if (values.jobUrl) dto.jobUrl = values.jobUrl;
   if (values.description) dto.description = values.description;
@@ -102,6 +106,7 @@ export function AddJobModal({
         status: job.status,
         priority: job.priority,
         salary: job.salary ?? "",
+        testType: job.testType,
         location: job.location ?? "",
         jobUrl: job.jobUrl ?? "",
         description: job.description ?? "",
@@ -116,6 +121,7 @@ export function AddJobModal({
       status: initialStatus,
       priority: "medium",
       salary: "",
+      testType: undefined,
       location: "",
       jobUrl: "",
       description: "",
@@ -187,7 +193,7 @@ export function AddJobModal({
                 className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 overflow-y-auto px-4 pb-4"
               >
                 <div className="space-y-2">
-                  <Label htmlFor="company">Company</Label>
+                  <Label htmlFor="company">Company <span className="text-(--status-rejected)">*</span></Label>
                   <Input
                     id="company"
                     {...register("company")}
@@ -201,7 +207,7 @@ export function AddJobModal({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="position">Position</Label>
+                  <Label htmlFor="position">Position <span className="text-(--status-rejected)">*</span></Label>
                   <Input
                     id="position"
                     {...register("position")}
@@ -228,18 +234,48 @@ export function AddJobModal({
                         [
                           "wishlist",
                           "applied",
+                          "online_test",
                           "interview",
                           "offer",
                           "rejected",
                         ] as JobStatus[]
                       ).map((s) => (
-                        <SelectItem key={s} value={s}>
-                          {s}
+                        <SelectItem key={s} value={s} className="capitalize">
+                          {s === "online_test" ? "Online Test" : s}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* Conditional Test Type dropdown */}
+                {status === "online_test" && (
+                  <div className="space-y-2 sm:col-span-2">
+                    <Label>Test Type</Label>
+                    <Select
+                      value={watch("testType") ?? ""}
+                      onValueChange={(v) => setValue("testType", v as TestType)}
+                    >
+                      <SelectTrigger className="bg-(--bg-secondary) border-border">
+                        <SelectValue placeholder="Select test type..." />
+                      </SelectTrigger>
+                      <SelectContent className="bg-(--bg-card) border-border">
+                        {([
+                          { value: "online_test", label: "Online Test" },
+                          { value: "psikotest", label: "Psikotest" },
+                          { value: "intelligence", label: "Intelligence Test" },
+                          { value: "technical", label: "Technical Test" },
+                          { value: "assessment", label: "Assessment" },
+                          { value: "other", label: "Other" },
+                        ] as const).map((t) => (
+                          <SelectItem key={t.value} value={t.value}>
+                            {t.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
 
                 <div className="space-y-2">
                   <Label>Priority</Label>

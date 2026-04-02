@@ -12,7 +12,16 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { Job, JobPriority, JobStatus } from "@/types/job.types";
+import type { Job, JobPriority, JobStatus, TestType } from "@/types/job.types";
+
+const TEST_TYPE_LABELS: Record<TestType, string> = {
+  online_test: "Online Test",
+  psikotest: "Psikotest",
+  intelligence: "Intelligence Test",
+  technical: "Technical Test",
+  assessment: "Assessment",
+  other: "Other",
+};
 
 const STATUS_CONFIG: Record<
   JobStatus,
@@ -20,6 +29,7 @@ const STATUS_CONFIG: Record<
 > = {
   wishlist: { label: "Wishlist", color: "#8B5CF6", bg: "#8B5CF620" },
   applied: { label: "Applied", color: "#3B82F6", bg: "#3B82F620" },
+  online_test: { label: "Online Test", color: "#06B6D4", bg: "#06B6D420" },
   interview: { label: "Interview", color: "#F59E0B", bg: "#F59E0B20" },
   offer: { label: "Offer", color: "#10B981", bg: "#10B98120" },
   rejected: { label: "Rejected", color: "#EF4444", bg: "#EF444420" },
@@ -79,6 +89,17 @@ export function JobDetailHeader({ job, onEdit, onDelete }: Props) {
               >
                 {statusConfig.label}
               </Badge>
+              {job.status === "online_test" && job.testType && (
+                <Badge
+                  className="text-xs font-medium border-0"
+                  style={{
+                    background: "#06B6D420",
+                    color: "#06B6D4",
+                  }}
+                >
+                  {TEST_TYPE_LABELS[job.testType] ?? job.testType}
+                </Badge>
+              )}
               <Badge
                 variant="secondary"
                 className="bg-muted text-(--text-primary) border border-border"

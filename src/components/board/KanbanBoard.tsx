@@ -21,7 +21,7 @@ import { KanbanColumn } from "./KanbanColumn";
 import { JobCard } from "./JobCard";
 import { AddJobModal } from "./AddJobModal";
 import { FilterBar } from "@/components/search/FilterBar";
-import { Star, Send, MessageSquare, Target, XCircle } from "lucide-react";
+import { Star, Send, ClipboardCheck, MessageSquare, Target, XCircle } from "lucide-react";
 
 export const KANBAN_COLUMNS: {
   id: JobStatus;
@@ -31,6 +31,7 @@ export const KANBAN_COLUMNS: {
 }[] = [
   { id: "wishlist", title: "Wishlist", color: "#8B5CF6", icon: Star },
   { id: "applied", title: "Applied", color: "#3B82F6", icon: Send },
+  { id: "online_test", title: "Test", color: "#06B6D4", icon: ClipboardCheck },
   { id: "interview", title: "Interview", color: "#F59E0B", icon: MessageSquare },
   { id: "offer", title: "Offer", color: "#10B981", icon: Target },
   { id: "rejected", title: "Rejected", color: "#EF4444", icon: XCircle },

@@ -4,10 +4,12 @@ import type { InterviewQuestion, OfferDetails } from './notification.types';
 export type JobStatus =
   | "wishlist"
   | "applied"
+  | "online_test"
   | "interview"
   | "offer"
   | "rejected";
 export type JobPriority = "low" | "medium" | "high";
+export type TestType = "online_test" | "psikotest" | "intelligence" | "technical" | "assessment" | "other";
 
 export interface Job {
   _id: string;
@@ -17,6 +19,7 @@ export interface Job {
   status: JobStatus;
   priority: JobPriority;
   salary?: string;
+  testType?: TestType;
   location?: string;
   jobUrl?: string;
   description?: string;
@@ -38,6 +41,7 @@ export interface CreateJobDTO {
   status: JobStatus;
   priority: JobPriority;
   salary?: string;
+  testType?: TestType;
   location?: string;
   jobUrl?: string;
   description?: string;
