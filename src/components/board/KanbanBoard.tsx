@@ -12,7 +12,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import toast from "react-hot-toast";
-import type { Job, JobStatus } from "@/types/job.types";
+import type { Job, JobStatus, TestType } from "@/types/job.types";
 import { useJobs } from "@/hooks/useJobs";
 import { useSearch } from "@/hooks/useSearch";
 import { useDragDrop } from "@/hooks/useDragDrop";
@@ -67,6 +67,15 @@ export function KanbanBoard() {
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [modalStatus, setModalStatus] = useState<JobStatus>("wishlist");
   const [editingJob, setEditingJob] = useState<Job | null>(null);
+
+  // Test type picker state (shown when dragging to "Test" column)
+  const [testTypePickerJob, setTestTypePickerJob] = useState<{
+    jobId: string;
+    nextJobs: Job[];
+    previousJobs: Job[];
+    status: JobStatus;
+    order: number;
+  } | null>(null);
 
   useEffect(() => {
     fetchJobs().catch(() => {
@@ -153,6 +162,19 @@ export function KanbanBoard() {
       return replacement ?? j;
     });
     setJobs(nextJobs);
+
+    // If moving to online_test, show test type picker
+    if (overColumnId === "online_test" && activeJob.status !== "online_test") {
+      setTestTypePickerJob({
+        jobId: activeId,
+        nextJobs,
+        previousJobs,
+        status: nextActive.status,
+        order: nextActive.order,
+      });
+      return; // Don't save yet — wait for test type selection
+    }
+
     try {
       await updateJobStatus(activeId, {
         status: nextActive.status,
@@ -161,6 +183,27 @@ export function KanbanBoard() {
     } catch {
       setJobs(previousJobs);
       toast.error("Move failed — reverted");
+    }
+  };
+
+  const confirmTestType = async (testType: TestType) => {
+    if (!testTypePickerJob) return;
+    const { jobId, previousJobs, status, order } = testTypePickerJob;
+    try {
+      await updateJobStatus(jobId, { status, order });
+      await updateJob(jobId, { testType });
+      setTestTypePickerJob(null);
+    } catch {
+      setJobs(previousJobs);
+      setTestTypePickerJob(null);
+      toast.error("Move failed — reverted");
+    }
+  };
+
+  const cancelTestTypePicker = () => {
+    if (testTypePickerJob) {
+      setJobs(testTypePickerJob.previousJobs);
+      setTestTypePickerJob(null);
     }
   };
 
@@ -242,6 +285,50 @@ export function KanbanBoard() {
           await updateJob(id, dto);
         }}
       />
+
+      {/* Test Type Picker Dialog */}
+      {testTypePickerJob && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="w-full max-w-sm mx-4 rounded-xl border border-border bg-(--bg-card) shadow-2xl p-5 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center gap-2.5 mb-1">
+              <div className="h-8 w-8 rounded-lg bg-[#06B6D415] flex items-center justify-center">
+                <ClipboardCheck className="h-4 w-4 text-[#06B6D4]" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-(--text-primary)">Jenis Test</h3>
+                <p className="text-xs text-(--text-secondary)">Pilih jenis test untuk job ini</p>
+              </div>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {([
+                { value: "online_test", label: "Online Test", emoji: "💻" },
+                { value: "psikotest", label: "Psikotest", emoji: "🧠" },
+                { value: "intelligence", label: "Intelligence", emoji: "📊" },
+                { value: "technical", label: "Technical", emoji: "⚙️" },
+                { value: "assessment", label: "Assessment", emoji: "📋" },
+                { value: "other", label: "Other", emoji: "📝" },
+              ] as const).map((t) => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => confirmTestType(t.value)}
+                  className="flex items-center gap-2.5 rounded-lg border border-border bg-(--bg-secondary) px-3 py-2.5 text-sm text-(--text-primary) hover:border-[#06B6D4]/50 hover:bg-[#06B6D4]/5 transition-all"
+                >
+                  <span className="text-base">{t.emoji}</span>
+                  {t.label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={cancelTestTypePicker}
+              className="mt-3 w-full rounded-lg border border-border px-3 py-2 text-xs text-(--text-muted) hover:bg-(--bg-hover) transition-colors"
+            >
+              Batal
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

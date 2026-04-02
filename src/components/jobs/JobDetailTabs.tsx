@@ -202,7 +202,7 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
                     href={job.jobUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-(--accent-cyan) hover:underline mt-0.5 block truncate max-w-xs"
+                    className="text-sm text-(--accent-cyan) hover:underline mt-0.5 block truncate max-w-[calc(100vw-7rem)] sm:max-w-xs"
                   >
                     {job.jobUrl}
                   </a>
