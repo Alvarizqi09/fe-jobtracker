@@ -141,7 +141,7 @@ export default function LoginPage() {
       <Card className="login-card relative w-full max-w-md border-border bg-[rgba(17,24,39,0.55)] backdrop-blur-xl shadow-[0_0_0_1px_rgba(45,64,96,0.35),0_30px_80px_rgba(0,0,0,0.55)] z-10">
         <div className="p-6">
           <div className="font-syne text-3xl tracking-tight text-(--text-primary)">
-            Job<span className="text-(--accent-cyan)">Deck</span>
+            Hunt<span className="text-(--accent-cyan)">rrr</span>
           </div>
           <div className="mt-2 text-sm text-(--text-secondary)">
             Track every opportunity. Land your dream role.

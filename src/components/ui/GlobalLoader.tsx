@@ -50,7 +50,7 @@ export function GlobalLoader() {
       {/* Main Logo Box */}
       <div className="loader-logo relative flex flex-col items-center">
         <div className="relative font-syne text-5xl font-bold tracking-tighter text-(--text-primary) px-4 py-2">
-          Job<span className="text-(--accent-cyan)">Deck</span>
+          Hunt<span className="text-(--accent-cyan)">rrr</span>
           
           {/* Scanner Line */}
           <div className="scanner absolute left-0 right-0 h-[2px] bg-(--accent-cyan) shadow-[0_0_12px_rgba(0,212,255,1)] opacity-80 z-10 pointer-events-none" />

@@ -28,7 +28,7 @@ export function Sidebar({ variant }: { variant?: 'desktop' | 'mobile' }) {
       <div className="flex-1 overflow-y-auto flex flex-col">
         <div className="p-5 shrink-0">
           <div className="font-syne text-xl tracking-tight text-(--text-primary)">
-            Job<span className="text-(--accent-cyan)">Deck</span>
+            Hunt<span className="text-(--accent-cyan)">rrr</span>
           </div>
           <div className="mt-1 text-xs text-(--text-secondary)">Mission Control for applications</div>
         </div>
