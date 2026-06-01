@@ -3,18 +3,36 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
-import { GlobalLoader } from '@/components/ui/GlobalLoader'
-import { useInitialLoader } from '@/hooks/useInitialLoader'
+import LandingPage from '@/components/landing/LandingPage'
+import '../app/landing.css'
 
 export default function HomePage() {
   const { user, isLoading } = useAuth()
   const router = useRouter()
-  const minDelayPassed = useInitialLoader()
 
+  // If user is already logged in, redirect to board
   useEffect(() => {
-    if (isLoading || !minDelayPassed) return
-    router.replace(user ? '/board' : '/login')
-  }, [isLoading, minDelayPassed, router, user])
+    if (!isLoading && user) {
+      router.replace('/board')
+    }
+  }, [isLoading, user, router])
 
-  return <GlobalLoader />
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="dark min-h-screen bg-[#080c14] flex items-center justify-center">
+        <div className="font-syne text-2xl text-[var(--text-primary)] animate-pulse">
+          Job<span className="text-[var(--accent-cyan)]">Deck</span>
+        </div>
+      </div>
+    )
+  }
+
+  // If not logged in, show the landing page
+  if (!user) {
+    return <LandingPage />
+  }
+
+  // Fallback while redirecting
+  return null
 }
