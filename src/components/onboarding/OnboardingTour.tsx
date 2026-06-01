@@ -10,7 +10,7 @@ const Joyride = dynamic(() => import("react-joyride"), { ssr: false });
 const steps = [
   {
     target: "body",
-    content: "Welcome to JobDeck! Let's take a quick tour to get you started.",
+    content: "Welcome to Huntrrr! Let's take a quick tour to get you started.",
     placement: "center" as const,
     disableBeacon: true,
   },
@@ -44,7 +44,7 @@ export function OnboardingTour() {
     // Only run if user is loaded and hasn't completed onboarding
     // For now, we'll store a flag in local storage to prevent annoyance during dev
     // In a real app, you'd check `user?.preferences?.hasCompletedOnboarding`
-    if (user && !localStorage.getItem("jobdeck_onboarding_done")) {
+    if (user && !localStorage.getItem("huntrrr_onboarding_done")) {
       const timer = setTimeout(() => {
         setRun(true);
       }, 1000);
@@ -58,7 +58,7 @@ export function OnboardingTour() {
 
     if (finishedStatuses.includes(status)) {
       setRun(false);
-      localStorage.setItem("jobdeck_onboarding_done", "true");
+      localStorage.setItem("huntrrr_onboarding_done", "true");
       // Optional: save to backend
       try {
         await api.patch("/users/preferences", { hasCompletedOnboarding: true });

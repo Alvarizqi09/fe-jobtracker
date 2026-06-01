@@ -125,7 +125,7 @@ export function Topbar() {
                     alt={user?.displayName ?? "User"}
                   />
                   <AvatarFallback className="bg-(--bg-card) text-(--text-primary)">
-                    {initials(user?.displayName ?? user?.email ?? "JobDeck")}
+                    {initials(user?.displayName ?? user?.email ?? "Huntrrr")}
                   </AvatarFallback>
                 </Avatar>
               </Button>

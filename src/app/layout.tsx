@@ -8,7 +8,7 @@ const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
 
 export const metadata: Metadata = {
-  title: 'JobDeck',
+  title: 'Huntrrr',
   description: 'Track every opportunity. Land your dream role.',
   manifest: '/manifest.json',
 }

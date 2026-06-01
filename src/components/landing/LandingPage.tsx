@@ -45,7 +45,7 @@ function Navbar() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="font-syne text-xl tracking-tight text-[var(--text-primary)] select-none">
-          Job<span className="text-[var(--accent-cyan)]">Deck</span>
+          Hunt<span className="text-[var(--accent-cyan)]">rrr</span>
         </Link>
 
         {/* Desktop nav */}
@@ -500,7 +500,7 @@ function CTASection() {
           </h2>
 
           <p className="mt-5 text-[var(--text-secondary)] text-base sm:text-lg max-w-md mx-auto leading-relaxed">
-            Join ribuan job seekers yang udah pake JobDeck buat organize job hunt mereka. Let&apos;s get that bag.
+            Join ribuan job seekers yang udah pake Huntrrr buat organize job hunt mereka. Let&apos;s get that bag.
           </p>
 
           {/* Trust badges */}
@@ -550,7 +550,7 @@ function Footer() {
     <footer className="relative z-10 border-t border-[rgba(79,142,247,0.08)] py-8 px-5">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="font-syne text-sm text-[var(--text-muted)]">
-          Job<span className="text-[var(--accent-cyan)]">Deck</span> © {new Date().getFullYear()}
+          Hunt<span className="text-[var(--accent-cyan)]">rrr</span> © {new Date().getFullYear()}
         </div>
         <div className="flex items-center gap-5 text-xs text-[var(--text-muted)]">
           <Link href="/login" className="hover:text-[var(--accent-cyan)] transition-colors">

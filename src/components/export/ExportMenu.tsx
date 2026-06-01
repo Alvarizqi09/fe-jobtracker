@@ -28,7 +28,7 @@ export function ExportMenu({ jobs }: Props) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `JobDeck_Export_${new Date().toISOString().split("T")[0]}.json`;
+    link.download = `Huntrrr_Export_${new Date().toISOString().split("T")[0]}.json`;
     link.click();
     URL.revokeObjectURL(url);
     toast.success("JSON exported");
