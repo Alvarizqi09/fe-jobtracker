@@ -9,7 +9,7 @@ const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrai
 
 export const metadata: Metadata = {
   title: 'Huntrrr',
-  description: 'Track every opportunity. Land your dream role.',
+  description: 'Track. Hunt. Land. — Your job hunt, weaponized.',
   manifest: '/manifest.json',
 }
 

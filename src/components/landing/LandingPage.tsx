@@ -202,7 +202,7 @@ function HeroSection() {
     return () => ctx.revert()
   }, [])
 
-  const headlineWords = ["Track", "Every", "Gig.", "Land", "Your", "Dream", "Role."]
+  const headlineWords = ["Stop", "Searching.", "Start", "Hunting."]
 
   return (
     <section
@@ -246,7 +246,7 @@ function HeroSection() {
           className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-[rgba(0,212,255,0.2)] bg-[rgba(0,212,255,0.06)]"
         >
           <Sparkles className="h-3.5 w-3.5 text-[var(--accent-cyan)]" />
-          <span className="text-xs font-medium text-[var(--accent-cyan)]">Your Career Command Center</span>
+          <span className="text-xs font-medium text-[var(--accent-cyan)]">Research · Reach · Result</span>
         </motion.div>
 
         {/* Headline */}
@@ -259,7 +259,7 @@ function HeroSection() {
             <span
               key={i}
               className={`hero-word inline-block opacity-0 mr-3 sm:mr-4 ${
-                i >= 3 ? "landing-gradient-text" : "text-[var(--text-primary)]"
+                i >= 2 ? "landing-gradient-text" : "text-[var(--text-primary)]"
               }`}
             >
               {word}
@@ -269,8 +269,8 @@ function HeroSection() {
 
         {/* Sub */}
         <p className="hero-sub opacity-0 mt-6 text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-          Manage lamaran kerja lo dari <span className="text-[var(--accent-cyan)] font-medium">wishlist</span> sampai{" "}
-          <span className="text-[#10b981] font-medium">offer</span> — semua di satu tempat. No more spreadsheet chaos.
+          Track setiap target dari <span className="text-[var(--accent-cyan)] font-medium">spotted</span> sampai{" "}
+          <span className="text-[#10b981] font-medium">captured</span> — semua di satu dashboard. Every application is a calculated move.
         </p>
 
         {/* CTAs */}
@@ -496,11 +496,11 @@ function CTASection() {
           </div>
 
           <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text-primary)] leading-tight">
-            Siap Ngatur <span className="landing-gradient-text">Karir Lo?</span>
+            Siap Jadi <span className="landing-gradient-text">Hunter?</span>
           </h2>
 
           <p className="mt-5 text-[var(--text-secondary)] text-base sm:text-lg max-w-md mx-auto leading-relaxed">
-            Join ribuan job seekers yang udah pake Huntrrr buat organize job hunt mereka. Let&apos;s get that bag.
+            Join ribuan hunters yang udah weaponize job search mereka dengan Huntrrr. Track. Hunt. Land.
           </p>
 
           {/* Trust badges */}
