@@ -22,7 +22,7 @@ export default function HomePage() {
     return (
       <div className="dark min-h-screen bg-[#080c14] flex items-center justify-center">
         <div className="font-syne text-2xl text-[var(--text-primary)] animate-pulse">
-          Job<span className="text-[var(--accent-cyan)]">Deck</span>
+          Hunt<span className="text-[var(--accent-cyan)]">rrr</span>
         </div>
       </div>
     )

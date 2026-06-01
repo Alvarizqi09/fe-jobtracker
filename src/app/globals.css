@@ -174,7 +174,8 @@
       radial-gradient(700px circle at 50% 90%, rgba(0, 212, 255, 0.05), transparent 50%);
   }
   html {
-    @apply font-sans;
+    @apply font-sans bg-background;
+    overflow-x: hidden;
   }
 }
 
