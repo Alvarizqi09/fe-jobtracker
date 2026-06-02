@@ -260,6 +260,30 @@
   font-feature-settings: 'tnum';
 }
 
+/* ── CTA Animated Gradient Border ── */
+@keyframes cta-border-spin {
+  0% { --cta-angle: 0deg; }
+  100% { --cta-angle: 360deg; }
+}
+
+@property --cta-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.cta-border-wrap {
+  background: conic-gradient(
+    from var(--cta-angle),
+    rgba(0, 212, 255, 0.5),
+    rgba(79, 142, 247, 0.15),
+    rgba(139, 92, 246, 0.5),
+    rgba(79, 142, 247, 0.15),
+    rgba(0, 212, 255, 0.5)
+  );
+  animation: cta-border-spin 6s linear infinite;
+}
+
 /* ── Responsive blob scaling ── */
 @media (max-width: 768px) {
   .landing-blob { filter: blur(80px); }

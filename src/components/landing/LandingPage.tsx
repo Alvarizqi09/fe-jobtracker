@@ -463,6 +463,40 @@ function FeaturesSection() {
 }
 
 
+/* ═══════════════════════════════════════════
+   MARQUEE TICKER
+   ═══════════════════════════════════════════ */
+function MarqueeTicker() {
+  const items = [
+    "Kanban Board", "Analytics", "Cover Letter AI", "Interview Prep",
+    "Timeline", "Job Contacts", "Profile", "Export PDF",
+  ]
+
+  return (
+    <div className="relative py-8 sm:py-10 overflow-hidden">
+      <div className="section-glow-divider max-w-3xl mx-auto mb-8" />
+
+      <div className="overflow-hidden opacity-50 hover:opacity-70 transition-opacity duration-300">
+        <div className="marquee-track">
+          {Array(4)
+            .fill(items)
+            .flat()
+            .map((text, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-3 px-6 text-sm text-[var(--text-muted)] font-medium whitespace-nowrap"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-cyan)] opacity-50" />
+                {text}
+              </span>
+            ))}
+        </div>
+      </div>
+
+      <div className="section-glow-divider max-w-3xl mx-auto mt-8" />
+    </div>
+  )
+}
 
 /* ═══════════════════════════════════════════
    CTA SECTION
@@ -473,69 +507,79 @@ function CTASection() {
 
   return (
     <section className="relative py-14 sm:py-20 px-5 overflow-hidden" ref={ref}>
-      {/* BG blobs */}
       <div className="landing-blob landing-blob-4" />
-      <div
-        className="landing-blob absolute top-[20%] left-[30%]"
-        style={{
-          width: 500,
-          height: 500,
-          background: "radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)",
-          animation: "blob-drift-reverse 14s ease-in-out infinite",
-        }}
-      />
 
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
+      <div className="relative z-10 max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 bg-[rgba(0,212,255,0.08)] border border-[rgba(0,212,255,0.15)]">
-            <Rocket className="h-7 w-7 text-[var(--accent-cyan)]" />
-          </div>
+          {/* Animated gradient border card */}
+          <div className="cta-border-wrap rounded-3xl p-[1px]">
+            <div className="rounded-3xl bg-[rgba(8,12,20,0.92)] backdrop-blur-2xl overflow-hidden">
+              <div className="px-8 py-12 sm:px-14 sm:py-16 md:flex items-center gap-12">
 
-          <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--text-primary)] leading-tight">
-            Siap Jadi <span className="landing-gradient-text">Hunter?</span>
-          </h2>
+                {/* Left — text content */}
+                <div className="flex-1 min-w-0">
+                  <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] leading-snug">
+                    Berhenti scroll lowongan,{" "}
+                    <span className="landing-gradient-text-subtle">mulai tracking.</span>
+                  </h2>
 
-          <p className="mt-5 text-[var(--text-secondary)] text-base sm:text-lg max-w-md mx-auto leading-relaxed">
-            Join ribuan hunters yang udah weaponize job search mereka dengan Huntrrr. Track. Hunt. Land.
-          </p>
+                  <p className="mt-4 text-[var(--text-secondary)] text-sm sm:text-base leading-relaxed max-w-md">
+                    Satu klik, langsung punya command center buat seluruh job hunt lo. Gratis, cepat, aman.
+                  </p>
 
-          {/* Trust badges */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(16,185,129,0.2)] bg-[rgba(16,185,129,0.05)]">
-              <svg className="h-3.5 w-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-              <span className="text-[11px] font-medium text-emerald-400/90">Data Terenkripsi & Aman</span>
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Link
+                      href="/login"
+                      className="glow-button inline-flex items-center gap-2.5 rounded-full px-8 py-3.5 text-sm font-bold
+                        bg-gradient-to-r from-[#00d4ff] to-[#4f8ef7] text-[#001018]
+                        hover:shadow-[0_0_32px_rgba(0,212,255,0.3)] transition-all duration-300"
+                    >
+                      <ArrowRight className="h-4 w-4" />
+                      Mulai Sekarang
+                    </Link>
+                    <span className="text-xs text-[var(--text-muted)]">Setup &lt; 30 detik</span>
+                  </div>
+                </div>
+
+                {/* Right — trust cards */}
+                <div className="mt-10 md:mt-0 flex flex-col gap-3 md:w-52 shrink-0">
+                  <div className="rounded-xl border border-[rgba(16,185,129,0.15)] bg-[rgba(16,185,129,0.04)] px-4 py-3">
+                    <div className="flex items-center gap-2.5 mb-1">
+                      <svg className="h-4 w-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                      <span className="text-xs font-semibold text-emerald-400">Terenkripsi</span>
+                    </div>
+                    <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">Data lo dienkripsi end-to-end. Ga ada yang bisa intip.</p>
+                  </div>
+
+                  <div className="rounded-xl border border-[rgba(0,212,255,0.12)] bg-[rgba(0,212,255,0.03)] px-4 py-3">
+                    <div className="flex items-center gap-2.5 mb-1">
+                      <svg className="h-4 w-4 text-[var(--accent-cyan)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                      <span className="text-xs font-semibold text-[var(--accent-cyan)]">Privasi</span>
+                    </div>
+                    <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">Data lo milik lo. Ga dijual, ga di-share, period.</p>
+                  </div>
+
+                  <div className="rounded-xl border border-[rgba(139,92,246,0.12)] bg-[rgba(139,92,246,0.03)] px-4 py-3">
+                    <div className="flex items-center gap-2.5 mb-1">
+                      <Zap className="h-4 w-4 text-purple-400 shrink-0" />
+                      <span className="text-xs font-semibold text-purple-400">Instant</span>
+                    </div>
+                    <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">No install, no setup ribet. Langsung gas di browser.</p>
+                  </div>
+                </div>
+
+              </div>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(0,212,255,0.15)] bg-[rgba(0,212,255,0.04)]">
-              <svg className="h-3.5 w-3.5 text-[var(--accent-cyan)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-              <span className="text-[11px] font-medium text-[var(--accent-cyan)]/80">Privacy-First · No Data Dijual</span>
-            </div>
           </div>
-
-          <div className="mt-8">
-            <Link
-              href="/login"
-              className="glow-button inline-flex items-center gap-3 rounded-full px-10 py-4 text-base font-bold
-                bg-gradient-to-r from-[#00d4ff] via-[#4f8ef7] to-[#8b5cf6] text-white
-                hover:shadow-[0_0_40px_rgba(0,212,255,0.3)] transition-all duration-300"
-            >
-              <Sparkles className="h-4.5 w-4.5" />
-              Mulai Sekarang — It&apos;s Free!
-            </Link>
-          </div>
-
-          <p className="mt-5 text-xs text-[var(--text-muted)] inline-flex items-center justify-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-[var(--accent-cyan)] opacity-60" />
-            Setup kurang dari 30 detik · No BS · All vibes
-          </p>
         </motion.div>
       </div>
     </section>
@@ -574,6 +618,7 @@ export default function LandingPage() {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
+      <MarqueeTicker />
       <CTASection />
       <Footer />
     </div>
