@@ -8,9 +8,36 @@ const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
 
 export const metadata: Metadata = {
-  title: 'Huntrrr',
-  description: 'Track. Hunt. Land. — Your job hunt, weaponized.',
+  metadataBase: new URL('https://huntrrr.vercel.app'),
+  title: 'Huntrrr | Smart Job Application Tracker',
+  description:
+    'Track. Hunt. Land. — Kelola lamaran kerjamu dengan Kanban board, AI Cover Letter Generator, dan Analytics Dashboard. Your job hunt, weaponized.',
+  keywords: [
+    'Job Application Tracker',
+    'Kanban Board',
+    'AI Cover Letter',
+    'Job Hunt',
+    'Career Tracker',
+    'Google Gemini',
+    'Huntrrr',
+  ],
+  authors: [{ name: 'Alvarizqi' }],
   manifest: '/manifest.json',
+  openGraph: {
+    title: 'Huntrrr | Smart Job Application Tracker',
+    description:
+      'Track. Hunt. Land. — Kelola lamaran kerjamu dengan Kanban board, AI Cover Letter Generator, dan Analytics Dashboard.',
+    url: 'https://huntrrr.vercel.app',
+    siteName: 'Huntrrr',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Huntrrr | Smart Job Application Tracker',
+    description:
+      'Track. Hunt. Land. — Kelola lamaran kerjamu dengan Kanban board, AI Cover Letter Generator, dan Analytics Dashboard.',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
