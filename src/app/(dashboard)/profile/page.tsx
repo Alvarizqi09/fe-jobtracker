@@ -12,6 +12,7 @@ import { SkillsStep } from "@/components/profile/steps/SkillsStep";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useProfileStore } from "@/store/profileStore";
+import toast from "react-hot-toast";
 
 const STEPS = [
   "Personal Info",
@@ -57,7 +58,10 @@ export default function ProfilePage() {
     if (newStep > currentStep) {
       const missingFields = getStepMissingFields(currentStep);
       if (missingFields.length > 0) {
-        alert(`Please complete the required fields before proceeding:\n\n• ${missingFields.join('\n• ')}`);
+        toast.error(
+          `Required: ${missingFields.join(', ')}`,
+          { duration: 4000, id: 'step-validation' }
+        );
         return;
       }
     }
