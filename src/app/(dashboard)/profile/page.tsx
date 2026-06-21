@@ -31,7 +31,36 @@ export default function ProfilePage() {
     fetchProfile().finally(() => setIsReady(true));
   }, [fetchProfile]);
 
+  const getStepMissingFields = (step: number): string[] => {
+    if (!profile) return ['Profile data'];
+    const missing: string[] = [];
+    if (step === 0) {
+      if (!profile.headline?.trim()) missing.push('Professional Headline');
+      if (!profile.location?.trim()) missing.push('Location');
+      if (!profile.summary?.trim()) missing.push('Personal Summary');
+    }
+    if (step === 1) {
+      if (profile.workExperience.length < 1) missing.push('At least one work experience');
+    }
+    if (step === 2) {
+      if (profile.education.length < 1) missing.push('At least one education entry');
+    }
+    if (step === 3) {
+      if (profile.skills.length < 5) missing.push('At least 5 skills');
+      if (profile.achievements.length < 2) missing.push('At least 2 achievements');
+    }
+    return missing;
+  };
+
   const navigateStep = async (newStep: number) => {
+    // Block forward navigation if current step is invalid
+    if (newStep > currentStep) {
+      const missingFields = getStepMissingFields(currentStep);
+      if (missingFields.length > 0) {
+        alert(`Please complete the required fields before proceeding:\n\n• ${missingFields.join('\n• ')}`);
+        return;
+      }
+    }
     // Auto save on navigation
     if (profile) {
       await saveProfile(profile);
@@ -58,26 +87,7 @@ export default function ProfilePage() {
     }
   };
 
-  const isStepValid = () => {
-    if (!profile) return false;
-    if (currentStep === 0) {
-      return !!(
-        profile.headline?.trim() &&
-        profile.location?.trim() &&
-        profile.summary?.trim()
-      );
-    }
-    if (currentStep === 1) {
-      return profile.workExperience.length >= 1;
-    }
-    if (currentStep === 2) {
-      return profile.education.length >= 1;
-    }
-    if (currentStep === 3) {
-      return profile.skills.length >= 5 && profile.achievements.length >= 2;
-    }
-    return true;
-  };
+  const isStepValid = () => getStepMissingFields(currentStep).length === 0;
 
   const variants = {
     enter: (direction: number) => ({
