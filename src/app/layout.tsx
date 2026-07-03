@@ -8,7 +8,7 @@ const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://huntrrr.vercel.app'),
+  metadataBase: new URL('https://huntrrr.web.id'),
   title: 'Huntrrr | Smart Job Application Tracker',
   description:
     'Track. Hunt. Land. — Kelola lamaran kerjamu dengan Kanban board, AI Cover Letter Generator, dan Analytics Dashboard. Your job hunt, weaponized.',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: 'Huntrrr | Smart Job Application Tracker',
     description:
       'Track. Hunt. Land. — Kelola lamaran kerjamu dengan Kanban board, AI Cover Letter Generator, dan Analytics Dashboard.',
-    url: 'https://huntrrr.vercel.app',
+    url: 'https://huntrrr.web.id',
     siteName: 'Huntrrr',
     locale: 'id_ID',
     type: 'website',
