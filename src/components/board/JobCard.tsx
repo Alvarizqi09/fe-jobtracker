@@ -206,11 +206,7 @@ export const JobCard = memo(function JobCard({
           </Badge>
         )}
 
-        {job.appliedDate ? (
-          <span className="font-jetbrains text-xs text-(--text-secondary)">
-            {formatDate(job.appliedDate)}
-          </span>
-        ) : null}
+
 
         <span className="text-xs text-(--text-secondary) flex items-center gap-1">
           <DollarSign className="h-3 w-3" />
