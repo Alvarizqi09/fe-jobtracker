@@ -49,6 +49,7 @@ const formSchema = z.object({
   testType: z.enum(["online_test", "psikotest", "intelligence", "technical", "assessment", "other"]).optional(),
   salaryMin: z.string().optional(),
   salaryMax: z.string().optional(),
+  workArrangement: z.enum(["wfh", "wfo", "hybrid"]).optional(),
   location: z.string().optional(),
   jobUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
   description: z.string().optional(),
@@ -68,6 +69,7 @@ function toDto(values: FormValues): CreateJobDTO {
   };
   if (values.salaryMin) dto.salaryMin = values.salaryMin;
   if (values.salaryMax) dto.salaryMax = values.salaryMax;
+  if (values.workArrangement) dto.workArrangement = values.workArrangement;
   if (values.testType && values.status === "online_test") dto.testType = values.testType;
   if (values.location) dto.location = values.location;
   if (values.jobUrl) dto.jobUrl = values.jobUrl;
@@ -109,6 +111,7 @@ export function AddJobModal({
         priority: job.priority,
         salaryMin: job.salaryMin ?? "",
         salaryMax: job.salaryMax ?? "",
+        workArrangement: job.workArrangement,
         testType: job.testType,
         location: job.location ?? "",
         jobUrl: job.jobUrl ?? "",
@@ -125,6 +128,7 @@ export function AddJobModal({
       priority: "medium",
       salaryMin: "",
       salaryMax: "",
+      workArrangement: undefined,
       testType: undefined,
       location: "",
       jobUrl: "",
@@ -304,6 +308,31 @@ export function AddJobModal({
                 </div>
 
                 <div className="space-y-2">
+                  <Label>Work Arrangement</Label>
+                  <Select
+                    value={watch("workArrangement") ?? ""}
+                    onValueChange={(v) =>
+                      setValue("workArrangement", v as "wfh" | "wfo" | "hybrid")
+                    }
+                  >
+                    <SelectTrigger className="bg-(--bg-secondary) border-border">
+                      <SelectValue placeholder="Select arrangement" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-(--bg-card) border-border">
+                      {([
+                        { value: "wfh", label: "WFH" },
+                        { value: "wfo", label: "WFO" },
+                        { value: "hybrid", label: "Hybrid" },
+                      ]).map((a) => (
+                        <SelectItem key={a.value} value={a.value}>
+                          {a.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
                   <Label htmlFor="salaryMin">Salary Min</Label>
                   <Input
                     id="salaryMin"
@@ -346,22 +375,12 @@ export function AddJobModal({
                   ) : null}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 sm:col-span-2">
                   <Label htmlFor="appliedDate">Applied date</Label>
                   <Input
                     id="appliedDate"
                     type="date"
                     {...register("appliedDate")}
-                    className="bg-(--bg-secondary) border-border"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="deadline">Deadline</Label>
-                  <Input
-                    id="deadline"
-                    type="date"
-                    {...register("deadline")}
                     className="bg-(--bg-secondary) border-border"
                   />
                 </div>

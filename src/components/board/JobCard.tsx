@@ -206,6 +206,18 @@ export const JobCard = memo(function JobCard({
           </Badge>
         )}
 
+        {job.workArrangement && (
+          <Badge
+            className="text-[10px] border-0"
+            style={{
+              background: "#6366F120",
+              color: "#6366F1",
+            }}
+          >
+            {job.workArrangement.toUpperCase()}
+          </Badge>
+        )}
+
 
 
         <span className="text-xs text-(--text-secondary) flex items-center gap-1">

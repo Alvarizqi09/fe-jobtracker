@@ -145,6 +145,21 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
               </div>
             )}
 
+            {/* Work Arrangement */}
+            {job.workArrangement && (
+              <div className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 text-(--accent-cyan) mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs text-(--text-muted) uppercase tracking-wider">
+                    Work Arrangement
+                  </div>
+                  <div className="text-sm text-(--text-primary) mt-0.5 capitalize">
+                    {job.workArrangement}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Applied Date */}
             {job.appliedDate && (
               <div className="flex items-start gap-3">

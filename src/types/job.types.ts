@@ -10,6 +10,7 @@ export type JobStatus =
   | "rejected";
 export type JobPriority = "low" | "medium" | "high";
 export type TestType = "online_test" | "psikotest" | "intelligence" | "technical" | "assessment" | "other";
+export type JobWorkArrangement = "wfh" | "wfo" | "hybrid";
 
 export interface Job {
   _id: string;
@@ -21,6 +22,7 @@ export interface Job {
   salaryMin?: string;
   salaryMax?: string;
   testType?: TestType;
+  workArrangement?: JobWorkArrangement;
   location?: string;
   jobUrl?: string;
   description?: string;
@@ -44,6 +46,7 @@ export interface CreateJobDTO {
   salaryMin?: string;
   salaryMax?: string;
   testType?: TestType;
+  workArrangement?: JobWorkArrangement;
   location?: string;
   jobUrl?: string;
   description?: string;
