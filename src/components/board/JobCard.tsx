@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { CSS } from "@dnd-kit/utilities";
 import { useSortable } from "@dnd-kit/sortable";
 import { motion } from "framer-motion";
-import { MapPin, Pencil, Trash2, Sparkles, Clock, DollarSign, FileText, MoreHorizontal, Loader2 } from "lucide-react";
+import { MapPin, Pencil, Trash2, Sparkles, DollarSign, FileText, MoreHorizontal, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { cn, formatDate } from "@/lib/utils";
 import type { Job, JobPriority, JobStatus, TestType } from "@/types/job.types";
-import { differenceInDays } from "date-fns";
+
 
 const TEST_TYPE_LABELS: Record<TestType, string> = {
   online_test: "Online Test",
@@ -89,12 +89,7 @@ export const JobCard = memo(function JobCard({
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Deadline countdown
-  const deadlineDays = job.deadline
-    ? differenceInDays(new Date(job.deadline), new Date())
-    : null;
-  const showDeadline =
-    deadlineDays !== null && deadlineDays >= 0 && deadlineDays <= 7;
+
 
   return (
     <motion.div
@@ -217,27 +212,12 @@ export const JobCard = memo(function JobCard({
           </span>
         ) : null}
 
-        {job.salary ? (
-          <span className="text-xs text-(--text-secondary) flex items-center gap-1">
-            <DollarSign className="h-3 w-3" />
-            {job.salary}
-          </span>
-        ) : null}
+        <span className="text-xs text-(--text-secondary) flex items-center gap-1">
+          <DollarSign className="h-3 w-3" />
+          {job.salary ? `up to ${job.salary}` : "-"}
+        </span>
 
-        {/* Deadline countdown chip */}
-        {showDeadline && (
-          <span
-            className={cn(
-              "inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full",
-              deadlineDays <= 3
-                ? "bg-[#EF444420] text-[#EF4444]"
-                : "bg-[#F59E0B20] text-[#F59E0B]",
-            )}
-          >
-            <Clock className="h-3 w-3" />
-            {deadlineDays === 0 ? "Today!" : `${deadlineDays}d`}
-          </span>
-        )}
+
 
         {job.description ? (
           <span className="text-xs text-(--text-secondary) flex items-center gap-1 min-w-0 max-w-xs">
