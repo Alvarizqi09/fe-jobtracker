@@ -18,7 +18,8 @@ export interface Job {
   position: string;
   status: JobStatus;
   priority: JobPriority;
-  salary?: string;
+  salaryMin?: string;
+  salaryMax?: string;
   testType?: TestType;
   location?: string;
   jobUrl?: string;
@@ -40,7 +41,8 @@ export interface CreateJobDTO {
   position: string;
   status: JobStatus;
   priority: JobPriority;
-  salary?: string;
+  salaryMin?: string;
+  salaryMax?: string;
   testType?: TestType;
   location?: string;
   jobUrl?: string;

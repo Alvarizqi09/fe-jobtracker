@@ -47,7 +47,8 @@ const formSchema = z.object({
   status: statusSchema,
   priority: prioritySchema,
   testType: z.enum(["online_test", "psikotest", "intelligence", "technical", "assessment", "other"]).optional(),
-  salary: z.string().optional(),
+  salaryMin: z.string().optional(),
+  salaryMax: z.string().optional(),
   location: z.string().optional(),
   jobUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
   description: z.string().optional(),
@@ -65,7 +66,8 @@ function toDto(values: FormValues): CreateJobDTO {
     status: values.status,
     priority: values.priority,
   };
-  if (values.salary) dto.salary = values.salary;
+  if (values.salaryMin) dto.salaryMin = values.salaryMin;
+  if (values.salaryMax) dto.salaryMax = values.salaryMax;
   if (values.testType && values.status === "online_test") dto.testType = values.testType;
   if (values.location) dto.location = values.location;
   if (values.jobUrl) dto.jobUrl = values.jobUrl;
@@ -105,7 +107,8 @@ export function AddJobModal({
         position: job.position,
         status: job.status,
         priority: job.priority,
-        salary: job.salary ?? "",
+        salaryMin: job.salaryMin ?? "",
+        salaryMax: job.salaryMax ?? "",
         testType: job.testType,
         location: job.location ?? "",
         jobUrl: job.jobUrl ?? "",
@@ -120,7 +123,8 @@ export function AddJobModal({
       position: "",
       status: initialStatus,
       priority: "medium",
-      salary: "",
+      salaryMin: "",
+      salaryMax: "",
       testType: undefined,
       location: "",
       jobUrl: "",
@@ -158,6 +162,7 @@ export function AddJobModal({
       if (mode === "create") {
         await onCreate(toDto(values));
         toast.success("Job created");
+        reset(defaultValues);
       } else if (mode === "edit" && job) {
         await onUpdate(job._id, toDto(values));
         toast.success("Job updated");
@@ -299,10 +304,21 @@ export function AddJobModal({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="salary">Salary</Label>
+                  <Label htmlFor="salaryMin">Salary Min</Label>
                   <Input
-                    id="salary"
-                    {...register("salary")}
+                    id="salaryMin"
+                    placeholder="e.g. 5.000.000"
+                    {...register("salaryMin")}
+                    className="bg-(--bg-secondary) border-border"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="salaryMax">Salary Max</Label>
+                  <Input
+                    id="salaryMax"
+                    placeholder="e.g. 10.000.000"
+                    {...register("salaryMax")}
                     className="bg-(--bg-secondary) border-border"
                   />
                 </div>

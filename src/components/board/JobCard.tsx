@@ -214,7 +214,13 @@ export const JobCard = memo(function JobCard({
 
         <span className="text-xs text-(--text-secondary) flex items-center gap-1">
           <DollarSign className="h-3 w-3" />
-          {job.salary ? `up to ${job.salary}` : "-"}
+          {job.salaryMin && job.salaryMax
+            ? `${job.salaryMin} – ${job.salaryMax}`
+            : job.salaryMin
+              ? `from ${job.salaryMin}`
+              : job.salaryMax
+                ? `up to ${job.salaryMax}`
+                : "-"}
         </span>
 
 

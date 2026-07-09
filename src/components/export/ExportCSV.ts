@@ -9,7 +9,8 @@ export function exportJobsToCSV(jobs: Job[]) {
     "Status",
     "Priority",
     "Applied Date",
-    "Salary",
+    "Salary Min",
+    "Salary Max",
     "Location",
     "Job URL",
     "Tags",
@@ -24,7 +25,8 @@ export function exportJobsToCSV(jobs: Job[]) {
     job.appliedDate
       ? new Date(job.appliedDate).toLocaleDateString()
       : "",
-    job.salary ?? "",
+    job.salaryMin ?? "",
+    job.salaryMax ?? "",
     job.location ?? "",
     job.jobUrl ?? "",
     (job.tags ?? []).join("; "),

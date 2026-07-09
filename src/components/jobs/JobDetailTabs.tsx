@@ -112,15 +112,19 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Salary */}
-            {job.salary && (
+            {(job.salaryMin || job.salaryMax) && (
               <div className="flex items-start gap-3">
                 <DollarSign className="h-4 w-4 text-(--accent-cyan) mt-0.5 shrink-0" />
                 <div>
                   <div className="text-xs text-(--text-muted) uppercase tracking-wider">
-                    Salary
+                    Salary Range
                   </div>
                   <div className="text-sm text-(--text-primary) mt-0.5">
-                    {job.salary}
+                    {job.salaryMin && job.salaryMax
+                      ? `${job.salaryMin} – ${job.salaryMax}`
+                      : job.salaryMin
+                        ? `from ${job.salaryMin}`
+                        : `up to ${job.salaryMax}`}
                   </div>
                 </div>
               </div>
