@@ -98,7 +98,7 @@ export function KanbanColumn({
           </div>
         </div>
 
-        <ScrollArea className="flex-1">
+        <ScrollArea className="flex-1 min-h-0 overflow-hidden">
           <div className="p-4 space-y-3">
             <SortableContext
               items={jobIds}
