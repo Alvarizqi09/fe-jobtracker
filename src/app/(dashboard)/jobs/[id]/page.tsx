@@ -7,6 +7,7 @@ import { useJobs } from "@/hooks/useJobs";
 import { useCoverLetter } from "@/hooks/useCoverLetter";
 import { JobDetailHeader } from "@/components/jobs/JobDetailHeader";
 import { JobDetailTabs } from "@/components/jobs/JobDetailTabs";
+import { AddJobModal } from "@/components/board/AddJobModal";
 import type { Job } from "@/types/job.types";
 import type { CoverLetter } from "@/types/cover-letter.types";
 import type { InterviewQuestion, OfferDetails } from "@/types/notification.types";
@@ -22,6 +23,7 @@ export default function JobDetailPage() {
   const [job, setJob] = useState<Job | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [jobCoverLetters, setJobCoverLetters] = useState<CoverLetter[]>([]);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadJob() {
@@ -48,8 +50,8 @@ export default function JobDetailPage() {
   }, [coverLetters, jobId]);
 
   const handleEdit = useCallback(() => {
-    router.push("/board");
-  }, [router]);
+    setEditModalOpen(true);
+  }, []);
 
   const handleDelete = useCallback(async () => {
     if (!job) return;
@@ -121,6 +123,20 @@ export default function JobDetailPage() {
         onInterviewQuestionsChange={handleInterviewQuestionsChange}
         onOfferDetailsChange={handleOfferDetailsChange}
       />
+
+      <AddJobModal
+        open={editModalOpen}
+        onOpenChange={setEditModalOpen}
+        mode="edit"
+        initialStatus={job.status}
+        job={job}
+        onCreate={async () => {}}
+        onUpdate={async (id, dto) => {
+          const updated = await updateJob(id, dto);
+          setJob(updated);
+        }}
+      />
     </div>
   );
 }
+
