@@ -2,6 +2,19 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import {
   DndContext,
   DragOverlay,
   PointerSensor,
@@ -21,7 +34,7 @@ import { KanbanColumn } from "./KanbanColumn";
 import { JobCard } from "./JobCard";
 import { AddJobModal } from "./AddJobModal";
 import { FilterBar } from "@/components/search/FilterBar";
-import { Star, Send, ClipboardCheck, MessageSquare, Target, XCircle } from "lucide-react";
+import { Star, Send, ClipboardCheck, MessageSquare, Target, XCircle, Trash2, AlertTriangle, Loader2 } from "lucide-react";
 
 export const KANBAN_COLUMNS: {
   id: JobStatus;
@@ -43,7 +56,7 @@ function getColumnIdFromOverId(overId: string): JobStatus | null {
 }
 
 export function KanbanBoard() {
-  const { fetchJobs, createJob, updateJob, updateJobStatus, deleteJob } =
+  const { fetchJobs, createJob, updateJob, updateJobStatus, deleteJob, deleteAllJobs } =
     useJobs();
   const getByStatus = useJobStore((s) => s.getByStatus);
   const setJobs = useJobStore((s) => s.setJobs);
@@ -67,6 +80,8 @@ export function KanbanBoard() {
   const [modalMode, setModalMode] = useState<"create" | "edit">("create");
   const [modalStatus, setModalStatus] = useState<JobStatus>("wishlist");
   const [editingJob, setEditingJob] = useState<Job | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   // Test type picker state (shown when dragging to "Test" column)
   const [testTypePickerJob, setTestTypePickerJob] = useState<{
@@ -120,6 +135,19 @@ export function KanbanBoard() {
       toast.success("Job deleted");
     } catch {
       toast.error("Delete failed");
+    }
+  };
+
+  const onDeleteAll = async () => {
+    setIsDeleting(true);
+    try {
+      const count = await deleteAllJobs();
+      toast.success(`${count} job${count !== 1 ? 's' : ''} deleted`);
+      setDeleteDialogOpen(false);
+    } catch {
+      toast.error("Failed to delete all jobs");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -218,6 +246,51 @@ export function KanbanBoard() {
             Track every opportunity with intent.
           </div>
         </div>
+        {jobs.length > 0 && (
+          <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialogTrigger
+              render={
+                <Button variant="destructive" size="sm">
+                  <Trash2 data-icon="inline-start" />
+                  Delete All
+                </Button>
+              }
+            />
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogMedia className="bg-destructive/10">
+                  <AlertTriangle className="text-destructive" />
+                </AlertDialogMedia>
+                <AlertDialogTitle>Delete all jobs?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete all <strong>{jobs.length}</strong> job{jobs.length !== 1 ? 's' : ''} from your board. This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={isDeleting}>
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  variant="destructive"
+                  onClick={onDeleteAll}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? (
+                    <>
+                      <Loader2 className="animate-spin" data-icon="inline-start" />
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 data-icon="inline-start" />
+                      Delete All
+                    </>
+                  )}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </div>
 
       {/* Filter Bar */}

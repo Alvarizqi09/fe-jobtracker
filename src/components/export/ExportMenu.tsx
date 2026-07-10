@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { exportJobsToCSV } from "./ExportCSV";
+import { exportJobsToExcel } from "./ExportCSV";
 import toast from "react-hot-toast";
 import type { Job } from "@/types/job.types";
 
@@ -17,9 +17,9 @@ interface Props {
 }
 
 export function ExportMenu({ jobs }: Props) {
-  const handleCSV = () => {
-    exportJobsToCSV(jobs);
-    toast.success("CSV exported");
+  const handleExcel = () => {
+    exportJobsToExcel(jobs);
+    toast.success("Excel exported");
   };
 
   const handleJSON = () => {
@@ -53,11 +53,11 @@ export function ExportMenu({ jobs }: Props) {
         className="bg-(--bg-card) border-border text-(--text-primary)"
       >
         <DropdownMenuItem
-          onClick={handleCSV}
+          onClick={handleExcel}
           className="cursor-pointer focus:bg-(--bg-hover) gap-2"
         >
           <FileSpreadsheet className="h-4 w-4" />
-          Export jobs as CSV
+          Export jobs as Excel
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={handleJSON}

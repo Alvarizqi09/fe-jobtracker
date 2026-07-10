@@ -22,6 +22,7 @@ export function useJobs() {
   const setError = useJobStore((s) => s.setError)
   const upsertJob = useJobStore((s) => s.upsertJob)
   const removeJob = useJobStore((s) => s.removeJob)
+  const clearAllJobs = useJobStore((s) => s.clearAllJobs)
 
   const fetchJobs = useCallback(
     async (status?: JobStatus): Promise<void> => {
@@ -71,6 +72,15 @@ export function useJobs() {
     [removeJob]
   )
 
+  const deleteAllJobs = useCallback(
+    async (): Promise<number> => {
+      const res = await api.delete<{ deletedCount: number }>('/jobs')
+      clearAllJobs()
+      return res.data.deletedCount
+    },
+    [clearAllJobs]
+  )
+
   return {
     jobs,
     isLoading,
@@ -80,6 +90,7 @@ export function useJobs() {
     updateJob,
     updateJobStatus,
     deleteJob,
+    deleteAllJobs,
   }
 }
 

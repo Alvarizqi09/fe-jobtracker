@@ -12,6 +12,7 @@ interface JobState {
   setError: (error: string | null) => void
   upsertJob: (job: Job) => void
   removeJob: (id: string) => void
+  clearAllJobs: () => void
   optimisticMove: (jobId: string, dto: UpdateJobStatusDTO) => { previousJobs: Job[] }
   revert: (previousJobs: Job[]) => void
   getByStatus: (status: JobStatus) => Job[]
@@ -41,6 +42,7 @@ export const useJobStore = create<JobState>((set, get) => ({
       return { jobs: sortForBoard(next) }
     }),
   removeJob: (id) => set((state) => ({ jobs: state.jobs.filter((j) => j._id !== id) })),
+  clearAllJobs: () => set({ jobs: [] }),
   optimisticMove: (jobId, dto) => {
     const previousJobs = get().jobs
     const job = previousJobs.find((j) => j._id === jobId)
