@@ -2,10 +2,21 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Search, Users, Briefcase, UserCheck, Link, Handshake } from "lucide-react";
+import { Plus, Search, Users, Briefcase, UserCheck, Link, Handshake, Trash2, AlertTriangle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import toast from "react-hot-toast";
 import { useContacts } from "@/hooks/useContacts";
 import { ContactCard } from "@/components/contacts/ContactCard";
@@ -24,6 +35,7 @@ export default function ContactsPage() {
   const [search, setSearch] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [editingContact, setEditingContact] = useState<Contact | null>(null);
+  const [deletingContact, setDeletingContact] = useState<Contact | null>(null);
 
   useEffect(() => {
     fetchContacts();
@@ -64,15 +76,25 @@ export default function ContactsPage() {
 
   const handleDelete = useCallback(
     async (id: string) => {
-      if (!confirm("Delete this contact?")) return;
+      const contact = contacts.find((c) => c._id === id);
+      if (contact) setDeletingContact(contact);
+    },
+    [contacts],
+  );
+
+  const confirmDelete = useCallback(
+    async () => {
+      if (!deletingContact) return;
       try {
-        await deleteContact(id);
+        await deleteContact(deletingContact._id);
         toast.success("Contact deleted");
       } catch {
         toast.error("Failed to delete contact");
+      } finally {
+        setDeletingContact(null);
       }
     },
-    [deleteContact],
+    [deletingContact, deleteContact],
   );
 
   return (
@@ -194,6 +216,33 @@ export default function ContactsPage() {
         onSubmit={handleSubmit}
         editContact={editingContact}
       />
+
+      {/* Delete Contact Confirmation */}
+      <AlertDialog open={!!deletingContact} onOpenChange={(open) => !open && setDeletingContact(null)}>
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogMedia className="bg-destructive/10">
+              <AlertTriangle className="text-destructive" />
+            </AlertDialogMedia>
+            <AlertDialogTitle>Delete contact?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete <strong>{deletingContact?.name}</strong>? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              variant="destructive"
+              onClick={confirmDelete}
+            >
+              <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

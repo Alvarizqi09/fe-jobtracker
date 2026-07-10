@@ -21,12 +21,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   Copy,
   Save,
   Download,
   Trash,
   RefreshCw,
   AlertCircle,
+  AlertTriangle,
   Sparkles,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -62,6 +75,7 @@ export default function CoverLetterGeneratorPage() {
 
   const lastSavedContent = useRef("");
   const [isEdited, setIsEdited] = useState(false);
+  const [discardDialogOpen, setDiscardDialogOpen] = useState(false);
 
   // Fetch profile
   useEffect(() => {
@@ -175,10 +189,9 @@ export default function CoverLetterGeneratorPage() {
   };
 
   const handleDiscard = () => {
-    if (window.confirm("Are you sure you want to discard this letter?")) {
-      setGeneratedLetter(null);
-      setEditorContent("");
-    }
+    setGeneratedLetter(null);
+    setEditorContent("");
+    setDiscardDialogOpen(false);
   };
 
   if (!isReady) {
@@ -398,15 +411,43 @@ export default function CoverLetterGeneratorPage() {
               </div>
 
               <div className="p-4 border-t bg-muted/10 flex flex-wrap gap-2 justify-end">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleDiscard}
-                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                >
-                  <Trash className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Discard</span>
-                </Button>
+                <AlertDialog open={discardDialogOpen} onOpenChange={setDiscardDialogOpen}>
+                  <AlertDialogTrigger
+                    render={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                      >
+                        <Trash className="w-4 h-4 sm:mr-2" />
+                        <span className="hidden sm:inline">Discard</span>
+                      </Button>
+                    }
+                  />
+                  <AlertDialogContent size="sm">
+                    <AlertDialogHeader>
+                      <AlertDialogMedia className="bg-destructive/10">
+                        <AlertTriangle className="text-destructive" />
+                      </AlertDialogMedia>
+                      <AlertDialogTitle>Discard this letter?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Your generated cover letter will be lost. This action cannot be undone.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>
+                        Cancel
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        variant="destructive"
+                        onClick={handleDiscard}
+                      >
+                        <Trash className="w-4 h-4 mr-1.5" />
+                        Discard
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
                 <Button
                   variant="outline"
                   size="sm"

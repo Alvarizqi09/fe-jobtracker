@@ -11,8 +11,21 @@ import {
   AlertTriangle,
   Download,
   Trash2,
+  Loader2,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,10 +36,12 @@ import { api } from "@/lib/api";
 import { logOut } from "@/lib/firebase";
 
 export default function SettingsPage() {
-  const { jobs, fetchJobs } = useJobs();
+  const { jobs, fetchJobs, deleteAllJobs } = useJobs();
   const router = useRouter();
   const [staleThreshold, setStaleThreshold] = useState(14);
   const [deleting, setDeleting] = useState(false);
+  const [deletingJobs, setDeletingJobs] = useState(false);
+  const [deleteJobsDialogOpen, setDeleteJobsDialogOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
 
   useEffect(() => {
@@ -34,15 +49,17 @@ export default function SettingsPage() {
   }, [fetchJobs]);
 
   const handleDeleteAllJobs = useCallback(async () => {
-    if (!confirm("Are you sure you want to delete ALL your jobs?")) return;
+    setDeletingJobs(true);
     try {
-      await Promise.all(jobs.map((j) => api.delete(`/jobs/${j._id}`)));
-      toast.success("All jobs deleted");
-      fetchJobs();
+      const count = await deleteAllJobs();
+      toast.success(`${count} job${count !== 1 ? "s" : ""} deleted`);
+      setDeleteJobsDialogOpen(false);
     } catch {
       toast.error("Failed to delete jobs");
+    } finally {
+      setDeletingJobs(false);
     }
-  }, [jobs, fetchJobs]);
+  }, [deleteAllJobs]);
 
   const handleDeleteAccount = useCallback(async () => {
     if (confirmText !== "DELETE") return;
@@ -225,14 +242,49 @@ export default function SettingsPage() {
                       Remove all job applications permanently
                     </p>
                   </div>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={handleDeleteAllJobs}
-                  >
-                    <Trash2 className="h-3.5 w-3.5 mr-1.5" />
-                    Delete All
-                  </Button>
+                  <AlertDialog open={deleteJobsDialogOpen} onOpenChange={setDeleteJobsDialogOpen}>
+                    <AlertDialogTrigger
+                      render={
+                        <Button variant="destructive" size="sm">
+                          <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+                          Delete All
+                        </Button>
+                      }
+                    />
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogMedia className="bg-destructive/10">
+                          <AlertTriangle className="text-destructive" />
+                        </AlertDialogMedia>
+                        <AlertDialogTitle>Delete all jobs?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This will permanently delete all <strong>{jobs.length}</strong> job{jobs.length !== 1 ? "s" : ""} from your board. This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel disabled={deletingJobs}>
+                          Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          variant="destructive"
+                          onClick={handleDeleteAllJobs}
+                          disabled={deletingJobs}
+                        >
+                          {deletingJobs ? (
+                            <>
+                              <Loader2 className="animate-spin h-3.5 w-3.5 mr-1.5" />
+                              Deleting...
+                            </>
+                          ) : (
+                            <>
+                              <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+                              Delete All
+                            </>
+                          )}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
 
                 <div className="border-t border-red-500/20 pt-4">
