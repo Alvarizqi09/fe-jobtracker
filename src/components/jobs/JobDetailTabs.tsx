@@ -18,7 +18,6 @@ import { InterviewPrepPanel } from "@/components/interview-prep/InterviewPrepPan
 import { SalaryNegotiationCard } from "@/components/salary/SalaryNegotiationCard";
 import type { Job } from "@/types/job.types";
 import type { CoverLetter } from "@/types/cover-letter.types";
-import type { ActivityEvent } from "@/types/analytics.types";
 import type { InterviewQuestion, OfferDetails } from "@/types/notification.types";
 
 function formatDate(dateStr: string): string {
@@ -47,10 +46,6 @@ export function JobDetailTabs({ job, coverLetters, onNotesChange, onInterviewQue
   const [questions, setQuestions] = useState<InterviewQuestion[]>(job.interviewQuestions ?? []);
   const [selectedLetter, setSelectedLetter] = useState<CoverLetter | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    setNotes(job.notes ?? "");
-  }, [job.notes]);
 
   const handleNotesChange = useCallback(
     (value: string) => {

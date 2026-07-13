@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useCoverLetter } from "@/hooks/useCoverLetter";
-import { useJobs } from "@/hooks/useJobs";
 import { useProfileStore, calculateCompleteness } from "@/store/profileStore";
 import { useProfile } from "@/hooks/useProfile";
 import { api } from "@/lib/api";

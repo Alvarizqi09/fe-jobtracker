@@ -9,7 +9,6 @@ import {
   Bell,
   User,
   AlertTriangle,
-  Download,
   Trash2,
   Loader2,
 } from "lucide-react";
@@ -28,7 +27,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/settings/ThemeToggle";
 import { ExportMenu } from "@/components/export/ExportMenu";
 import { useJobs } from "@/hooks/useJobs";

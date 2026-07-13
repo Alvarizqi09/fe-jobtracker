@@ -2,10 +2,9 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Search, Users, Briefcase, UserCheck, Link, Handshake, Trash2, AlertTriangle } from "lucide-react";
+import { Plus, Search, Users, Briefcase, UserCheck,  Handshake, Trash2, AlertTriangle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -208,6 +207,7 @@ export default function ContactsPage() {
 
       {/* Modal */}
       <AddContactModal
+        key={editingContact?._id ?? "new"}
         open={modalOpen}
         onClose={() => {
           setModalOpen(false);

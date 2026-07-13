@@ -54,6 +54,7 @@ export interface CreateJobDTO {
   appliedDate?: string;
   deadline?: string;
   tags?: string[];
+  offerDetails?: OfferDetails;
 }
 
 export interface UpdateJobStatusDTO {

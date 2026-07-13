@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import type { Contact, CreateContactDTO } from "@/types/contact.types";
+import type { Contact, CreateContactDTO, MeetingType } from "@/types/contact.types";
 
 const RELATIONSHIPS = [
   { value: "recruiter", label: "Recruiter" },
@@ -21,6 +21,14 @@ const RELATIONSHIPS = [
   { value: "connection", label: "Connection" },
   { value: "other", label: "Other" },
 ] as const;
+
+const MEETING_TYPES: { value: MeetingType; label: string }[] = [
+  { value: "google_meet", label: "Google Meet" },
+  { value: "zoom", label: "Zoom" },
+  { value: "teams", label: "Microsoft Teams" },
+  { value: "offline", label: "Offline / On-site" },
+  { value: "other", label: "Other" },
+];
 
 interface Props {
   open: boolean;
@@ -35,7 +43,9 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
     role: editContact?.role ?? "",
     company: editContact?.company ?? "",
     email: editContact?.email ?? "",
-    linkedin: editContact?.linkedin ?? "",
+    meetingLink: editContact?.meetingLink ?? "",
+    meetingType: editContact?.meetingType,
+    meetingLocationUrl: editContact?.meetingLocationUrl ?? "",
     phone: editContact?.phone ?? "",
     notes: editContact?.notes ?? "",
     relationship: editContact?.relationship ?? "other",
@@ -58,7 +68,7 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
     }
   };
 
-  const set = (key: keyof CreateContactDTO, val: any) =>
+  const set = (key: keyof CreateContactDTO, val: string | undefined) =>
     setForm((prev) => ({ ...prev, [key]: val }));
 
   return (
@@ -143,14 +153,52 @@ export function AddContactModal({ open, onClose, onSubmit, editContact }: Props)
             </div>
           </div>
 
-          <div>
-            <Label className="text-xs text-(--text-muted)">LinkedIn</Label>
-            <Input
-              value={form.linkedin}
-              onChange={(e) => set("linkedin", e.target.value)}
-              placeholder="https://linkedin.com/in/..."
-              className="bg-(--bg-primary) border-border text-(--text-primary)"
-            />
+          {/* Meeting Section */}
+          <div className="space-y-3 rounded-lg border border-border/50 p-3 bg-(--bg-secondary)/30">
+            <div className="text-xs font-medium text-(--text-muted) uppercase tracking-wider">
+              Interview / Meeting
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label className="text-xs text-(--text-muted)">Meeting Type</Label>
+                <Select
+                  value={form.meetingType ?? ""}
+                  onValueChange={(v) => set("meetingType", v || undefined)}
+                >
+                  <SelectTrigger className="bg-(--bg-primary) border-border text-(--text-primary)">
+                    <SelectValue placeholder="Select type..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-(--bg-card) border-border">
+                    {MEETING_TYPES.map((mt) => (
+                      <SelectItem key={mt.value} value={mt.value}>
+                        {mt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label className="text-xs text-(--text-muted)">Meeting Link</Label>
+                <Input
+                  value={form.meetingLink}
+                  onChange={(e) => set("meetingLink", e.target.value)}
+                  placeholder="https://meet.google.com/..."
+                  className="bg-(--bg-primary) border-border text-(--text-primary)"
+                />
+              </div>
+            </div>
+
+            {form.meetingType === "offline" && (
+              <div>
+                <Label className="text-xs text-(--text-muted)">Location URL (Google Maps)</Label>
+                <Input
+                  value={form.meetingLocationUrl}
+                  onChange={(e) => set("meetingLocationUrl", e.target.value)}
+                  placeholder="https://maps.google.com/..."
+                  className="bg-(--bg-primary) border-border text-(--text-primary)"
+                />
+              </div>
+            )}
           </div>
 
           <div>

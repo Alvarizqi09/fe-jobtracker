@@ -1,3 +1,5 @@
+export type MeetingType = "google_meet" | "zoom" | "teams" | "offline" | "other";
+
 export interface Contact {
   _id: string;
   userId: string;
@@ -5,7 +7,9 @@ export interface Contact {
   role: string;
   company: string;
   email?: string;
-  linkedin?: string;
+  meetingLink?: string;
+  meetingType?: MeetingType;
+  meetingLocationUrl?: string;
   phone?: string;
   linkedJobIds: string[];
   notes?: string;
@@ -26,7 +30,9 @@ export interface CreateContactDTO {
   role: string;
   company: string;
   email?: string;
-  linkedin?: string;
+  meetingLink?: string;
+  meetingType?: MeetingType;
+  meetingLocationUrl?: string;
   phone?: string;
   linkedJobIds?: string[];
   notes?: string;

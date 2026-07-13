@@ -93,7 +93,7 @@ export default function JobDetailPage() {
     async (details: OfferDetails) => {
       if (!job) return;
       try {
-        await updateJob(job._id, { offerDetails: details } as any);
+        await updateJob(job._id, { offerDetails: details });
         setJob((prev) => (prev ? { ...prev, offerDetails: details } : prev));
       } catch {
         toast.error("Failed to save offer details");
