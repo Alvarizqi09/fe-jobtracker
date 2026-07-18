@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileDown, FileJson, FileSpreadsheet } from "lucide-react";
+import { Download, FileJson, FileSpreadsheet } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,

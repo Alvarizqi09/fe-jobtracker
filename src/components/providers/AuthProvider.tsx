@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const t = await current.getIdToken(true)
           setToken(t)
         }, 55 * 60 * 1000)
-      } catch (err) {
+      } catch {
         toast.error('Auth sync failed. Please refresh.')
         // Keep Firebase user but mark app as not loading to avoid deadlock
       } finally {

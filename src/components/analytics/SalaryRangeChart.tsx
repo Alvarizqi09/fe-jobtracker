@@ -13,7 +13,7 @@ import type { SalaryRange } from "@/types/analytics.types";
 
 const SALARY_COLORS = ["#3B82F6", "#00D4FF", "#8B5CF6", "#F59E0B", "#10B981"];
 
-function CustomTooltip({ active, payload }: any) {
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ value: number; payload: SalaryRange }> }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">

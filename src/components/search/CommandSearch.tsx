@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, createElement } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Star, Send, MessageSquare, Target, XCircle, Layout, BarChart, Calendar, Home, Sparkles, User, MapPin } from "lucide-react";
+import { Star, Send, MessageSquare, Target, XCircle, Layout, BarChart, Calendar, Home, Sparkles, User, MapPin } from "lucide-react";
 import {
   CommandDialog,
   CommandInput,

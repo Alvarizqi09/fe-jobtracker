@@ -6,7 +6,6 @@ import { CoverLetterCard } from '@/components/cover-letter/CoverLetterCard'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Plus, Search, FileText } from 'lucide-react'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function CoverLetterHistoryPage() {
@@ -55,7 +54,7 @@ export default function CoverLetterHistoryPage() {
           </div>
           <h3 className="text-xl font-semibold mb-2">No cover letters yet</h3>
           <p className="text-muted-foreground max-w-sm mb-6">
-            You haven't generated any cover letters yet. Click the button below to craft your first personalized pitch.
+            You haven&apos;t generated any cover letters yet. Click the button below to craft your first personalized pitch.
           </p>
           <Button onClick={() => window.location.href = '/cover-letter/new'} variant="secondary">
             Generate Cover Letter

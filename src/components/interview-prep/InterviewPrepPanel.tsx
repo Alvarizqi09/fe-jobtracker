@@ -6,7 +6,7 @@ import { Plus, BookOpen } from "lucide-react";
 import toast from "react-hot-toast";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PrepProgress } from "./PrepProgress";
 import { GenerateQuestionsBtn } from "./GenerateQuestionsBtn";
 import { QuestionCard } from "./QuestionCard";
@@ -143,7 +143,7 @@ export function InterviewPrepPanel({
             No interview questions yet
           </p>
           <p className="text-xs text-(--text-muted)">
-            Click "Generate with AI" to get started
+            Click &quot;Generate with AI&quot; to get started
           </p>
         </div>
       ) : (

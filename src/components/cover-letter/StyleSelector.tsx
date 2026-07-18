@@ -9,7 +9,7 @@ interface Props {
   onSelect: (style: CoverLetterStyle) => void
 }
 
-const STYLES: { id: CoverLetterStyle, label: string, desc: string, icon: any }[] = [
+const STYLES: { id: CoverLetterStyle, label: string, desc: string, icon: React.ElementType }[] = [
   { 
     id: 'formal', 
     label: 'Formal', 

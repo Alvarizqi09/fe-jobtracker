@@ -22,7 +22,7 @@ const emptyProfile: UserProfile = {
   languages: [],
 }
 
-export const useProfileStore = create<ProfileState>((set, get) => ({
+export const useProfileStore = create<ProfileState>((set) => ({
   profile: emptyProfile,
   setProfile: (profile) => set({ profile: profile || emptyProfile }),
   updateField: (field, value) => set((state) => ({

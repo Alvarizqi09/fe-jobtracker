@@ -5,7 +5,6 @@ import { api } from "@/lib/api";
 import type {
   JobStats,
   FunnelStage,
-  TimelineEvent,
 } from "@/types/analytics.types";
 
 export function useAnalytics() {

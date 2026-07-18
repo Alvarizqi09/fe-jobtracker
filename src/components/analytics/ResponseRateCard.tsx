@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import type { MonthlyData } from "@/types/analytics.types";
 
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number }>; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">

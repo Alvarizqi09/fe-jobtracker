@@ -12,6 +12,7 @@ import { SkillsStep } from "@/components/profile/steps/SkillsStep";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useProfileStore } from "@/store/profileStore";
+import { CvUploadButton } from "@/components/profile/CvUploadButton";
 import toast from "react-hot-toast";
 
 const STEPS = [
@@ -119,11 +120,18 @@ export default function ProfilePage() {
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">Your Profile</h1>
-        <p className="text-muted-foreground">
-          Complete your profile to generate highly personalized AI cover
-          letters.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight mb-2">Your Profile</h1>
+            <p className="text-muted-foreground">
+              Complete your profile to generate highly personalized AI cover
+              letters.
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <CvUploadButton />
+          </div>
+        </div>
       </div>
 
       <ProfileStepper

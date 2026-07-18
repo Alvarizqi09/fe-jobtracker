@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useMemo, useState } from 'react'
-import type { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core'
+import type { DragOverEvent, DragStartEvent } from '@dnd-kit/core'
 import type { Job, JobStatus } from '@/types/job.types'
 import { useJobStore } from '@/store/jobStore'
 
@@ -48,7 +48,7 @@ export function useDragDrop() {
     }
   }, [findJob])
 
-  const onDragEnd = useCallback((_event: DragEndEvent) => {
+  const onDragEnd = useCallback(() => {
     setActiveJob(null)
     setOverColumnId(null)
   }, [])

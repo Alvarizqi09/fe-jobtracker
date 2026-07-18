@@ -15,7 +15,7 @@ export function useProfile() {
       if (res.data.profile) {
         setProfile(res.data.profile)
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to fetch profile', err)
     } finally {
       setLoading(false)
@@ -29,8 +29,11 @@ export function useProfile() {
       setProfile(res.data.profile)
       toast.success('Profile saved successfully!')
       return res.data.profile
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to save profile')
+    } catch (err: unknown) {
+      const message = err instanceof Error && 'response' in err
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message
+        : 'Failed to save profile'
+      toast.error(message || 'Failed to save profile')
       throw err
     } finally {
       setLoading(false)

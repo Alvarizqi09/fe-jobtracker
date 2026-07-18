@@ -52,7 +52,7 @@ export function OnboardingTour() {
     }
   }, [user]);
 
-  const handleJoyrideCallback = async (data: any) => {
+  const handleJoyrideCallback = async (data: { status: string }) => {
     const { status } = data;
     const finishedStatuses: string[] = ["finished", "skipped"];
 
@@ -62,7 +62,7 @@ export function OnboardingTour() {
       // Optional: save to backend
       try {
         await api.patch("/users/preferences", { hasCompletedOnboarding: true });
-      } catch (e) {
+      } catch {
         // ignore
       }
     }

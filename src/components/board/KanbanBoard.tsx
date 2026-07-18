@@ -58,7 +58,6 @@ function getColumnIdFromOverId(overId: string): JobStatus | null {
 export function KanbanBoard() {
   const { fetchJobs, createJob, updateJob, updateJobStatus, deleteJob, deleteAllJobs } =
     useJobs();
-  const getByStatus = useJobStore((s) => s.getByStatus);
   const setJobs = useJobStore((s) => s.setJobs);
   const jobs = useJobStore((s) => s.jobs);
 
@@ -152,7 +151,7 @@ export function KanbanBoard() {
   };
 
   const handleDragEnd = async (event: DragEndEvent): Promise<void> => {
-    handlers.onDragEnd(event);
+    handlers.onDragEnd();
     const activeId = String(event.active.id);
     const overId = event.over?.id ? String(event.over.id) : null;
     if (!overId) return;

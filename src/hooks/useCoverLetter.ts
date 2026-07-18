@@ -13,8 +13,11 @@ export function useCoverLetter() {
       const res = await api.post('/cover-letter/generate', data)
       toast.success('Cover letter generated!')
       return res.data
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to generate cover letter')
+    } catch (err: unknown) {
+      const message = err instanceof Error && 'response' in err
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message
+        : 'Failed to generate cover letter'
+      toast.error(message || 'Failed to generate cover letter')
       throw err
     } finally {
       setLoading(false)
@@ -26,7 +29,7 @@ export function useCoverLetter() {
     try {
       const res = await api.get('/cover-letter')
       setCoverLetters(res.data)
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to fetch cover letters', err)
       toast.error('Failed to load history')
     } finally {
@@ -38,7 +41,7 @@ export function useCoverLetter() {
     try {
       const res = await api.get(`/cover-letter/${id}`)
       return res.data
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error('Failed to load cover letter')
       throw err
     }
@@ -48,8 +51,11 @@ export function useCoverLetter() {
     try {
       const res = await api.put(`/cover-letter/${id}`, { content })
       return res.data
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to auto-save')
+    } catch (err: unknown) {
+      const message = err instanceof Error && 'response' in err
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message
+        : 'Failed to auto-save'
+      toast.error(message || 'Failed to auto-save')
       throw err
     }
   }
@@ -59,7 +65,7 @@ export function useCoverLetter() {
       await api.delete(`/cover-letter/${id}`)
       setCoverLetters(prev => prev.filter(l => l._id !== id))
       toast.success('Deleted successfully')
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error('Failed to delete')
       throw err
     }

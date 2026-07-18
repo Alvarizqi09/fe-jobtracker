@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import { Search, X, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,16 +11,9 @@ import {
 } from "@/components/ui/popover";
 import { FilterChip } from "./FilterChip";
 import type { SearchFilters } from "@/types/analytics.types";
-import type { JobPriority, JobStatus } from "@/types/job.types";
+import type { JobPriority } from "@/types/job.types";
 
-const STATUSES: { value: JobStatus; label: string }[] = [
-  { value: "wishlist", label: "Wishlist" },
-  { value: "applied", label: "Applied" },
-  { value: "online_test", label: "Online Test" },
-  { value: "interview", label: "Interview" },
-  { value: "offer", label: "Offer" },
-  { value: "rejected", label: "Rejected" },
-];
+
 
 const PRIORITIES: { value: JobPriority; label: string; color: string }[] = [
   { value: "high", label: "High", color: "#EF4444" },

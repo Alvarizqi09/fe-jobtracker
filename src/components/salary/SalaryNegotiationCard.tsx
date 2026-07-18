@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { DollarSign, AlertCircle } from "lucide-react";
+import { DollarSign } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
 import type { OfferDetails } from "@/types/notification.types";
 
 const DECISIONS = [
@@ -32,7 +32,10 @@ export function SalaryNegotiationCard({ offerDetails, onUpdate }: Props) {
   });
 
   useEffect(() => {
-    if (offerDetails) setDetails((prev) => ({ ...prev, ...offerDetails }));
+    if (offerDetails) {
+      const timer = setTimeout(() => setDetails((prev) => ({ ...prev, ...offerDetails })), 0);
+      return () => clearTimeout(timer);
+    }
   }, [offerDetails]);
 
   const handleChange = useCallback(

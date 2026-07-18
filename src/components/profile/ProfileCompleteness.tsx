@@ -39,7 +39,7 @@ export function ProfileCompleteness() {
           </div>
         ) : (
           <p className="text-sm text-green-500 font-medium">
-            Your profile is fully complete! You're ready to generate amazing cover letters.
+            Your profile is fully complete! You&apos;re ready to generate amazing cover letters.
           </p>
         )}
       </CardContent>

@@ -15,7 +15,7 @@ export function GenerateButton({ isGenerating, onClick, disabled }: Props) {
   const btnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    let ctx = gsap.context(() => {})
+    const ctx = gsap.context(() => {})
     
     if (!isGenerating && !disabled && btnRef.current) {
       ctx.add(() => {

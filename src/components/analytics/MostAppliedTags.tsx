@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   BarChart,
   Bar,
@@ -11,7 +10,7 @@ import {
 } from "recharts";
 import type { TagCount } from "@/types/analytics.types";
 
-function CustomTooltip({ active, payload }: any) {
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ value: number; payload: TagCount }> }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">

@@ -12,14 +12,21 @@ import {
 } from "recharts";
 import type { MonthlyData } from "@/types/analytics.types";
 
-function CustomTooltip({ active, payload, label }: any) {
+interface TooltipEntry {
+  dataKey: string;
+  value: number;
+  color: string;
+  name: string;
+}
+
+function CustomTooltip({ active, payload, label }: { active?: boolean; payload?: TooltipEntry[]; label?: string }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-lg border border-border bg-(--bg-card) p-3 shadow-xl">
       <div className="text-sm font-semibold text-(--text-primary) mb-2">
         {label}
       </div>
-      {payload.map((entry: any) => (
+      {payload.map((entry: TooltipEntry) => (
         <div
           key={entry.dataKey}
           className="flex items-center gap-2 text-xs py-0.5"

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { CoverLetter } from '@/types/cover-letter.types'
 import { FileText, Calendar, Building, Trash2, Edit } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
-import Link from 'next/link'
+
 
 interface Props {
   letter: CoverLetter

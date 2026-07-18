@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NotificationItem } from "./NotificationItem";
 import type { AppNotification } from "@/types/notification.types";
-import { Bell, BellOff } from "lucide-react";
+import { BellOff } from "lucide-react";
 
 interface Props {
   notifications: AppNotification[];

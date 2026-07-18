@@ -2,12 +2,11 @@
 
 import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertTriangle, X } from "lucide-react";
-import { differenceInDays, format } from "date-fns";
-import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { differenceInDays } from "date-fns";
 import { useJobStore } from "@/store/jobStore";
 
-export function DeadlineAlert({ onFilter }: { onFilter?: () => void }) {
+export function DeadlineAlert() {
   const jobs = useJobStore((s) => s.jobs);
 
   const upcomingDeadlines = useMemo(() => {

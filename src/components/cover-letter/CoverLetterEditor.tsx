@@ -41,7 +41,8 @@ export function CoverLetterEditor({ content, onChange }: Props) {
   }, [content, editor]);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!mounted || !editor) {

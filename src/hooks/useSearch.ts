@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { useJobStore } from "@/store/jobStore";
-import type { Job, JobStatus, JobPriority } from "@/types/job.types";
+
 import type { SearchFilters } from "@/types/analytics.types";
 
 const defaultFilters: SearchFilters = {

@@ -16,6 +16,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent
 } from '@dnd-kit/core'
 import {
   arrayMove,
@@ -38,9 +39,9 @@ export function WorkExperienceStep() {
     })
   )
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
-    if (active.id !== over.id) {
+    if (over && active.id !== over.id) {
       const oldIndex = experiences.findIndex(x => x.id === active.id)
       const newIndex = experiences.findIndex(x => x.id === over.id)
       const newArray = arrayMove(experiences, oldIndex, newIndex)

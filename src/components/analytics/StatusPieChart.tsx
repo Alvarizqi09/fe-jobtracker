@@ -31,7 +31,7 @@ interface Props {
   total: number;
 }
 
-function CustomTooltip({ active, payload }: any) {
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ name: string; value: number; payload: { fill: string } }> }) {
   if (!active || !payload?.length) return null;
   const data = payload[0];
   return (
@@ -52,7 +52,7 @@ function CustomTooltip({ active, payload }: any) {
 
 export function StatusPieChart({ byStatus, total }: Props) {
   const data = Object.entries(byStatus)
-    .filter(([_, count]) => count > 0)
+    .filter(([, count]) => count > 0)
     .map(([status, count]) => ({
       name: STATUS_LABELS[status] || status,
       value: count,

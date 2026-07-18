@@ -35,7 +35,7 @@ function GoogleIcon() {
 
 function checkInAppBrowser(): boolean {
   if (typeof window === 'undefined') return false
-  const ua = navigator.userAgent || navigator.vendor || (window as any).opera || ''
+  const ua = navigator.userAgent || navigator.vendor || (window as unknown as { opera?: string }).opera || ''
   const rules = [
     'WebView',
     '(iPhone|iPod|iPad)(?!.*Safari/)',
@@ -92,8 +92,9 @@ export default function LoginPage() {
         await signInWithEmailAndPassword(auth, email, password)
       }
       router.push('/board')
-    } catch (error: any) {
-      toast.error(error.message || 'Authentication failed')
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Authentication failed'
+      toast.error(message)
     } finally {
       setLoading(false)
     }

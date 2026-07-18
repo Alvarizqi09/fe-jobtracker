@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { motion, useInView } from "framer-motion"
 import gsap from "gsap"

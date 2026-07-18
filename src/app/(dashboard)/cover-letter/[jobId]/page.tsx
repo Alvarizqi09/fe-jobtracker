@@ -127,7 +127,7 @@ export default function CoverLetterGeneratorPage() {
         await updateLetter(generatedLetter._id, editorContent);
         lastSavedContent.current = editorContent;
         if (!isEdited) setIsEdited(true);
-      } catch (err) {
+      } catch {
         // toast handles error
       }
     }, 30000);
@@ -475,7 +475,7 @@ export default function CoverLetterGeneratorPage() {
                     try {
                       await updateLetter(generatedLetter._id, editorContent);
                       toast.success("Saved explicitly!");
-                    } catch (e) {}
+                    } catch {}
                   }}
                 >
                   <Save className="w-4 h-4 sm:mr-2" />

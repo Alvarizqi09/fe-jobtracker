@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { Bell, Briefcase, CalendarClock, Clock, User, AlertTriangle } from "lucide-react";
+import { Bell, Briefcase, CalendarClock, Clock, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { AppNotification } from "@/types/notification.types";
 
@@ -31,7 +31,6 @@ interface Props {
 export function NotificationItem({
   notification,
   onRead,
-  onDismiss,
   onNavigate,
 }: Props) {
   const Icon = ICON_MAP[notification.type] ?? Bell;

@@ -9,19 +9,22 @@ import { auth } from '@/lib/firebase'
 function CallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [error, setError] = useState<string | null>(null)
+  const [asyncError, setAsyncError] = useState<string | null>(null)
+
+  const token = searchParams.get('token')
+  const error = !token
+    ? 'Authentication failed: Missing token.'
+    : !auth
+      ? 'Firebase is not initialized.'
+      : asyncError
 
   useEffect(() => {
-    const token = searchParams.get('token')
-    
     if (!token) {
-      setError('Authentication failed: Missing token.')
       setTimeout(() => router.push('/login'), 3000)
       return
     }
 
     if (!auth) {
-      setError('Firebase is not initialized.')
       return
     }
 
@@ -32,10 +35,10 @@ function CallbackContent() {
       })
       .catch((err) => {
         console.error('Failed to sign in with custom token', err)
-        setError('Authentication failed: Invalid or expired token.')
+        setAsyncError('Authentication failed: Invalid or expired token.')
         setTimeout(() => router.push('/login'), 3000)
       })
-  }, [router, searchParams])
+  }, [router, token])
 
   if (error) {
     return (

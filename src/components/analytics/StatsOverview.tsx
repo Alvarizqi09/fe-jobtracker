@@ -3,9 +3,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
-  TrendingUp,
-  TrendingDown,
-  Minus,
   Briefcase,
   MessageSquare,
   Trophy,
